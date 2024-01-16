@@ -1,0 +1,177 @@
+
+/* Common */
+
+.warningText{
+    color: orange;
+}
+.dangerText{
+    color: red;
+}
+.successText{
+    color: green;
+}
+
+.primaryText{
+    color: #008080;
+}
+
+.cardContainer{
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
+    overflow: hidden !important;
+}
+
+.headerTable{
+    background-color: #008080 !important;
+    color: white !important;
+    font-size: 15px;
+    font-weight: 500;
+
+}
+
+/* LIST CARDS */
+
+.title{
+ color: #008080 !important;   
+}
+
+.aqiCon{
+    
+    color: white !important;
+    text-align: center;
+    border-radius:  15px; 
+    padding: 2px;
+}
+
+
+.danger{
+    background-color: red;
+}
+
+.success{
+    background-color: green;
+}
+
+.footerCard{
+    margin-top: 10px;
+    background-color: #008080 !important;
+    color: white !important;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+/* Current AQI CARD */
+
+.headerTitle{
+    font-size: x-large !important;
+}
+
+
+.bigText{
+    font-size: larger;
+}
+
+.statusCard{
+    text-align: center;
+    margin-left:15px !important ;
+    background-color: orange;
+    width: fit-content !important;
+    color: white;
+    font-size: large;
+    font-weight: 500;
+    padding: 5px 20px ;
+    border-radius: 20px;
+}
+
+.score{
+    text-align: center;
+    color: orange;
+    font-size: 60px;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.subtitle{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.img{
+    width: 60px;
+}
+
+/* Pollution Table */
+
+
+
+.column1{
+    color:#008080
+}
+
+
+/* Air Pollutant Card */
+.PollutantTitle{
+    text-align: center !important;
+    color: #008080;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.pollutantScore{
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.pollutantColumn{
+    text-align: center !important;
+}
+
+.descContainer{
+    display: flex;
+    margin-top: 20px;
+}
+
+.subContainer1{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subContainer2{
+    flex: 4;
+    text-align: center;
+}
+
+.ConcentrationScoreContainer{
+    background-color: orange;
+    padding: 10px 20px;
+    text-align: center;
+    color: white;
+    border-radius: 10px;
+    
+}
+
+.ConcentrationScore{
+    font-size: 25px;
+    font-weight: 600;
+}
+
+/* Calendar  */
+.calendar{
+    border: none !important;
+}
+
+.highlight{
+    color: orange !important;
+}
+
+/* Marque */
+.headline{
+    margin-right: 120px;
+    font-size: 15px;
+    font-weight: 600;
+    padding-bottom: 5px;    
+}
