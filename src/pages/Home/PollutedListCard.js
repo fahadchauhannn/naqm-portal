@@ -1,14 +1,43 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Card, CardBody, CardFooter, CardTitle, Table } from "reactstrap"
 import styles from "./Home.module.css"
+import { get } from "helpers/api_helper"
 
 const AqiContainer = props => {
-  return (
-    <div className={`${styles.aqiCon} ${styles.danger}`}>{props.children}</div>
-  )
+  let style = styles.success
+  if (props.children > 50 && props.children <= 100) {
+    style = styles.moderate
+  }
+  if (props.children > 100 && props.children <= 150) {
+    style = styles.unhealthy
+  }
+  if (props.children > 150 && props.children <= 200) {
+    style = styles.danger
+  }
+  if (props.children > 200 && props.children <= 300) {
+    style = styles.veryUnhealthy
+  }
+  if (props.children > 300) {
+    style = styles.hazardous
+  }
+  return <div className={`${styles.aqiCon} ${style}`}>{props.children}</div>
 }
 
 const PollutedListCard = () => {
+  const [nodes, setNodes] = useState([])
+
+  useEffect(() => {
+    fetchWorstNodes()
+  }, [])
+
+  const fetchWorstNodes = async () => {
+    try {
+      const reponse = await get("data/readings-by-type/worst")
+      setNodes(reponse.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <Card>
       <CardBody>
@@ -26,27 +55,15 @@ const PollutedListCard = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Seecs Node</td>
-                <td>
-                  <AqiContainer>100</AqiContainer>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Gate 1 Node</td>
-                <td>
-                  <AqiContainer>165</AqiContainer>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Helipad Ground</td>
-                <td>
-                  <AqiContainer>200</AqiContainer>
-                </td>
-              </tr>
+              {nodes.map((node, index) => (
+                <tr key={node.node_id}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{node.name}</td>
+                  <td>
+                    <AqiContainer>{node.aqi}</AqiContainer>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </div>

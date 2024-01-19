@@ -52,6 +52,19 @@
     background-color: green;
 }
 
+.moderate{
+    background-color: yellow;
+}
+.unhealthy{
+    background-color: orange;
+}
+.veryUnhealthy{
+    background-color: purple;
+}
+.hazardous{
+    background-color: maroon;
+}
+
 .footerCard{
     margin-top: 10px;
     background-color: #008080 !important;

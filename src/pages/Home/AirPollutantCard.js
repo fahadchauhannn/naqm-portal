@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import {
   Card,
   CardBody,
@@ -9,8 +9,25 @@ import {
   Row,
 } from "reactstrap"
 import styles from "./Home.module.css"
+import { get } from "helpers/api_helper"
 
 const AirPollutantCard = () => {
+  const [pollutants, setPollutants] = useState([])
+
+  useEffect(() => {
+    fetchPollutants()
+  }, [])
+
+  const fetchPollutants = async () => {
+    try {
+      const reponse = await get("data/top-pollutants")
+      console.log(reponse.data, "Top Pollutants")
+      setPollutants(reponse.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <Card>
       <CardBody>
@@ -18,18 +35,12 @@ const AirPollutantCard = () => {
           Major Air Pollutants in NUST
         </CardTitle>
         <Row style={{ marginTop: "20px" }}>
-          <Col className={styles.pollutantColumn}>
-            <span className={styles.pollutantScore}>35</span>
-            <span>(PM2.5)</span>
-          </Col>
-          <Col className={styles.pollutantColumn}>
-            <span className={styles.pollutantScore}>34</span>
-            <span>(CO)</span>
-          </Col>
-          <Col className={styles.pollutantColumn}>
-            <span className={styles.pollutantScore}>32</span>
-            <span>(PM10)</span>
-          </Col>
+          {pollutants.map(pollutant => (
+            <Col className={styles.pollutantColumn} key={pollutant.name}>
+              <span className={styles.pollutantScore}>{pollutant.aqi}</span>
+              <span>({pollutant.name})</span>
+            </Col>
+          ))}
         </Row>
         {/* <div className={styles.descContainer}>
           <div className={styles.subContainer1}>

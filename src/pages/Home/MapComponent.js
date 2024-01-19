@@ -1,15 +1,31 @@
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from "google-maps-react"
+import { get } from "helpers/api_helper"
 import LightData from "pages/Maps/LightData"
-import React, { useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { connect } from "react-redux"
 
 const LoadingContainer = () => <div>Loading...</div>
 
 const MapComponent = props => {
+  const [nodes, setNodes] = useState([])
   const selectedPlace = {}
-  function onMarkerClick() {
-    alert("Current AQI of this node is 165")
+  function onMarkerClick(aqi) {
+    alert(`Current AQI of this node is ${aqi}`)
   }
+
+  useEffect(() => {
+    fetchMapReadings()
+  }, [])
+
+  const fetchMapReadings = async () => {
+    try {
+      const reponse = await get("data/map-readings")
+      setNodes(reponse.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <div
       id="gmaps-overlay"
@@ -22,34 +38,22 @@ const MapComponent = props => {
         style={{ width: "100%", height: "100%" }}
         styles={LightData.Data}
         initialCenter={{
-          lat: 33.64505870722462,
-          lng: 72.9924019430869,
+          lat: 33.643034447738955,
+          lng: 72.98970798650696,
         }}
       >
-        <Marker
-          onClick={() => {
-            onMarkerClick()
-          }}
-          position={{ lat: 33.64301392354466, lng: 72.99061729274453 }}
-          title={"Node 1 Seecs"}
-          name={"Node 1"}
-        />
-        <Marker
-          onClick={() => {
-            onMarkerClick()
-          }}
-          position={{ lat: 33.644763963793125, lng: 72.98965536101481 }}
-          title={"Node 2 Helipad Ground"}
-          name={"Node 2"}
-        />
-        <Marker
-          onClick={() => {
-            onMarkerClick()
-          }}
-          position={{ lat: 33.64909888882513, lng: 72.99962808210702 }}
-          title={"Node 3 Gate 1"}
-          name={"Node 3"}
-        />
+        {nodes.map(node => (
+          <Marker
+            key={node.node_id}
+            onClick={() => {
+              onMarkerClick(node.aqi)
+            }}
+            position={{ lat: node.lat, lng: node.lng }}
+            title={node.name}
+            name={node.name}
+          />
+        ))}
+
         <InfoWindow>
           <div>
             <h1>{selectedPlace.name}</h1>

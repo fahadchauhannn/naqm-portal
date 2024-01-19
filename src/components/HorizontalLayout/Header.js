@@ -1,12 +1,16 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 
-import { connect } from "react-redux"
+import { connect, useDispatch } from "react-redux"
 
 import { Link, useNavigate, useNavigation } from "react-router-dom"
 
 // Redux Store
-import { showRightSidebarAction, toggleLeftmenu } from "../../store/actions"
+import {
+  logoutUser,
+  showRightSidebarAction,
+  toggleLeftmenu,
+} from "../../store/actions"
 // reactstrap
 import { Row, Col, Dropdown, DropdownToggle, DropdownMenu } from "reactstrap"
 
@@ -38,6 +42,7 @@ const Header = props => {
   const [socialDrp, setsocialDrp] = useState(false)
   const navigate = useNavigate()
   const login = localStorage.getItem("authUser")
+  const dispatch = useDispatch()
 
   function toggleFullscreen() {
     if (
@@ -272,7 +277,7 @@ const Header = props => {
                 color: "#008080",
               }}
             >
-              NUST Air Quality Monitoring
+              Eco-Sniffer
             </p>
           </div>
 
@@ -376,18 +381,35 @@ const Header = props => {
               </DropdownMenu>
             </Dropdown> */}
 
-            <div className="dropdown d-none d-lg-inline-block ms-1">
-              <button
-                type="button"
-                className="btn header-item noti-icon "
-                onClick={() => {
-                  navigate("/login")
-                }}
-                data-toggle="fullscreen"
-              >
-                Login
-              </button>
-            </div>
+            {!login && (
+              <div className="dropdown d-none d-lg-inline-block ms-1">
+                <button
+                  type="button"
+                  className="btn header-item noti-icon "
+                  onClick={() => {
+                    navigate("/login")
+                  }}
+                  data-toggle="fullscreen"
+                >
+                  Login
+                </button>
+              </div>
+            )}
+            {login && (
+              <div className="dropdown d-none d-lg-inline-block ms-1">
+                <button
+                  type="button"
+                  className="btn header-item noti-icon "
+                  onClick={() => {
+                    localStorage.clear()
+                    navigate("/home")
+                  }}
+                  data-toggle="fullscreen"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
 
             <div className="dropdown d-none d-lg-inline-block ms-1">
               <button
