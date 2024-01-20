@@ -1,8 +1,24 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Card, CardBody, CardHeader, Table } from "reactstrap"
 import styles from "./Home.module.css"
+import { get } from "helpers/api_helper"
 
 const PollutionTable = () => {
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    fetchTableData()
+  }, [])
+
+  const fetchTableData = async () => {
+    try {
+      const response = await get("data/latest-readings")
+      console.log(response.data, "Latest Readings")
+      setData(response.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <Card className={styles.cardContainer}>
       <CardHeader className={styles.headerTable}>
@@ -17,45 +33,25 @@ const PollutionTable = () => {
                 <th>Status</th>
                 <th>AQI-NUST</th>
                 <th>PM2.5</th>
-                <th>PM10</th>
+                <th>CO2</th>
                 <th>Temp</th>
                 <th>Humid</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th className={styles.column1} scope="row">
-                  Node-1
-                </th>
-                <td className={styles.dangerText}>Poor</td>
-                <td>105</td>
-                <td>34</td>
-                <td>0</td>
-                <td>23</td>
-                <td>26</td>
-              </tr>
-              <tr>
-                <th className={styles.column1} scope="row">
-                  Node-2
-                </th>
-                <td className={styles.warningText}>Moderate</td>
-                <td>97</td>
-                <td>37</td>
-                <td>1</td>
-                <td>23</td>
-                <td>26</td>
-              </tr>
-              <tr>
-                <th className={styles.column1} scope="row">
-                  Node-3
-                </th>
-                <td className={styles.dangerText}>Poor</td>
-                <td>120</td>
-                <td>37</td>
-                <td>1</td>
-                <td>23</td>
-                <td>26</td>
-              </tr>
+              {data.map(node => (
+                <tr key={node.node_id}>
+                  <th className={styles.column1} scope="row">
+                    {node.name}
+                  </th>
+                  <td className={styles.dangerText}>{node.status}</td>
+                  <td>{node.aqi}</td>
+                  <td>{node.dust}</td>
+                  <td>{node.co2}</td>
+                  <td>{node.temp}</td>
+                  <td>{node.humid}</td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </div>

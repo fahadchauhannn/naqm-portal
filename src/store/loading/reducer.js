@@ -10,7 +10,6 @@ const loadingReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_LOADING:
       const url = action.payload
-      console.log(url, "UUURRRLL")
       if (state.loadingList.includes(url)) {
         return state
       }

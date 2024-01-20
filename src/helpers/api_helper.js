@@ -19,7 +19,6 @@ axiosApi.interceptors.request.use(
 
       return newConfig
     }
-    console.log("config", config)
     return config
   },
   error => {
@@ -64,7 +63,6 @@ export async function get(url, config = {}) {
 }
 
 export async function post(url, data, config = {}) {
-  console.log(data, "Data")
   return axiosApi
     .post(url, { ...data }, { ...config })
     .then(response => response.data)

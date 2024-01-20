@@ -21,7 +21,6 @@ const AirPollutantCard = () => {
   const fetchPollutants = async () => {
     try {
       const reponse = await get("data/top-pollutants")
-      console.log(reponse.data, "Top Pollutants")
       setPollutants(reponse.data)
     } catch (err) {
       console.log(err)
