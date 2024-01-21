@@ -19,6 +19,27 @@ const PollutionTable = () => {
       console.log(err)
     }
   }
+
+  const getStyle = aqi => {
+    let style = styles.successText
+    if (aqi > 50 && aqi <= 100) {
+      style = styles.moderateText
+    }
+    if (aqi > 100 && aqi <= 150) {
+      style = styles.unhealthyText
+    }
+    if (aqi > 150 && aqi <= 200) {
+      style = styles.dangerText
+    }
+    if (aqi > 200 && aqi <= 300) {
+      style = styles.veryUnhealthyText
+    }
+    if (aqi > 300) {
+      style = styles.hazardousText
+    }
+
+    return style
+  }
   return (
     <Card className={styles.cardContainer}>
       <CardHeader className={styles.headerTable}>
@@ -44,7 +65,7 @@ const PollutionTable = () => {
                   <th className={styles.column1} scope="row">
                     {node.name}
                   </th>
-                  <td className={styles.dangerText}>{node.status}</td>
+                  <td className={getStyle(node.aqi)}>{node.status}</td>
                   <td>{node.aqi}</td>
                   <td>{node.dust}</td>
                   <td>{node.co2}</td>

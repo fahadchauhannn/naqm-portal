@@ -41,30 +41,30 @@
 }
 
 .danger {
-  background-color: red;
-  color: white;
+  background-color: red !important;
+  color: white !important;
 }
 
 .success {
-  background-color: green;
-  color: black;
+  background-color: green !important;
+  color: black !important;
 }
 
 .moderate {
-  background-color: yellow;
-  color: black;
+  background-color: yellow !important;
+  color: black !important;
 }
 .unhealthy {
-  background-color: orange;
-  color: white;
+  background-color: orange !important;
+  color: white !important;
 }
 .veryUnhealthy {
-  background-color: purple;
-  color: white;
+  background-color: purple !important;
+  color: white !important;
 }
 .hazardous {
-  background-color: maroon;
-  color: white;
+  background-color: maroon !important;
+  color: white !important;
 }
 
 .dangerText {
@@ -193,7 +193,9 @@
 }
 
 .highlight {
-  color: orange !important;
+  /* color: orange !important; */
+  background-color: orange !important;
+  color: #000 !important;
 }
 
 /* Marque */
