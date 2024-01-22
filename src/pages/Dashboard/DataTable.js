@@ -1,12 +1,40 @@
 import TableContainer from "components/Common/TableContainer"
-import React, { useMemo } from "react"
+import { get } from "helpers/api_helper"
+import React, { useEffect, useMemo, useState } from "react"
 
-const DataTable = () => {
+const Date = cell => {
+  console.log("celll", cell)
+  return cell.value ? cell.value.slice(0, 10) : ""
+}
+
+const DataTable = props => {
+  const { node } = props
+
+  console.log(node, "Node for table data")
+  const [tableData, setTableData] = useState([])
+
+  useEffect(() => {
+    fetchNodesData()
+  }, [node])
+
+  const fetchNodesData = async () => {
+    try {
+      const response = await get(`data/latest-readings/node/${node}`)
+      console.log(response.data, "my data")
+      setTableData(response.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   const columns = useMemo(
     () => [
       {
         Header: "Created At",
         accessor: "created_at",
+        Cell: cellProps => {
+          return <Date {...cellProps} />
+        },
       },
       {
         Header: "Node Id",
@@ -16,14 +44,7 @@ const DataTable = () => {
         Header: "Name",
         accessor: "name",
       },
-      {
-        Header: "lat",
-        accessor: "lat",
-      },
-      {
-        Header: "lng",
-        accessor: "lng",
-      },
+
       {
         Header: "Dust",
         accessor: "dust",
@@ -57,126 +78,30 @@ const DataTable = () => {
         accessor: "pm_ten",
       },
       {
-        Header: "Humidity",
+        Header: "Humid",
         accessor: "humid",
       },
       {
-        Header: "Temperature",
-        accessor: "temperature",
+        Header: "Temp",
+        accessor: "temp",
+      },
+      {
+        Header: "lat",
+        accessor: "lat",
+      },
+      {
+        Header: "lng",
+        accessor: "lng",
       },
     ],
     []
   )
 
-  const data = [
-    {
-      created_at: new Date().toISOString().slice(0, 10),
-      node_id: 2,
-      name: "Seecs Node",
-      lat: "2.7",
-      lng: "2.4",
-      dust: "35",
-      co: "20",
-      co2: "990",
-      no2: "300",
-      ch4: "13",
-      nh3: "100",
-      pm_one: "12",
-      pm_ten: "103",
-      humid: "15",
-      temperature: "25",
-    },
-    {
-      created_at: new Date().toISOString().slice(0, 10),
-      node_id: 2,
-      name: "Seecs Node",
-      lat: "2.7",
-      lng: "2.4",
-      dust: "35",
-      co: "20",
-      co2: "990",
-      no2: "300",
-      ch4: "13",
-      nh3: "100",
-      pm_one: "12",
-      pm_ten: "103",
-      humid: "15",
-      temperature: "25",
-    },
-    {
-      created_at: new Date().toISOString().slice(0, 10),
-      node_id: 2,
-      name: "Seecs Node",
-      lat: "2.7",
-      lng: "2.4",
-      dust: "35",
-      co: "20",
-      co2: "990",
-      no2: "300",
-      ch4: "13",
-      nh3: "100",
-      pm_one: "12",
-      pm_ten: "103",
-      humid: "15",
-      temperature: "25",
-    },
-    {
-      created_at: new Date().toISOString().slice(0, 10),
-      node_id: 2,
-      name: "Seecs Node",
-      lat: "2.7",
-      lng: "2.4",
-      dust: "35",
-      co: "20",
-      co2: "990",
-      no2: "300",
-      ch4: "13",
-      nh3: "100",
-      pm_one: "12",
-      pm_ten: "103",
-      humid: "15",
-      temperature: "25",
-    },
-    {
-      created_at: new Date().toISOString().slice(0, 10),
-      node_id: 2,
-      name: "Seecs Node",
-      lat: "2.7",
-      lng: "2.4",
-      dust: "35",
-      co: "20",
-      co2: "990",
-      no2: "300",
-      ch4: "13",
-      nh3: "100",
-      pm_one: "12",
-      pm_ten: "103",
-      humid: "15",
-      temperature: "25",
-    },
-    {
-      created_at: new Date().toISOString().slice(0, 10),
-      node_id: 2,
-      name: "Seecs Node",
-      lat: "2.7",
-      lng: "2.4",
-      dust: "35",
-      co: "20",
-      co2: "990",
-      no2: "300",
-      ch4: "13",
-      nh3: "100",
-      pm_one: "12",
-      pm_ten: "103",
-      humid: "15",
-      temperature: "25",
-    },
-  ]
   return (
     <div>
       <TableContainer
         columns={columns}
-        data={data}
+        data={tableData}
         isGlobalFilter={false}
         isAddOptions={false}
         customPageSize={10}

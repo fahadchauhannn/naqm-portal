@@ -13,6 +13,10 @@ import {
   ModalBody,
   ModalFooter,
   Table,
+  Dropdown,
+  DropdownMenu,
+  DropdownToggle,
+  DropdownItem,
 } from "reactstrap"
 import { Link } from "react-router-dom"
 
@@ -46,9 +50,10 @@ import StatisticsApplications from "pages/Dashboard/StatisticsApplications"
 import DatatableTables from "pages/Tables/DatatableTables"
 import DataTable from "./DataTable"
 import MiniWidget from "./mini-widget"
+import { get } from "helpers/api_helper"
 
 const series1 = [
-  { name: "BTC", data: [12, 14, 2, 47, 42, 15, 47, 75, 65, 19, 14] },
+  { name: "Data", data: [12, 14, 2, 47, 42, 15, 47, 75, 65, 19, 14] },
 ]
 const options1 = {
   chart: { sparkline: { enabled: !0 } },
@@ -65,15 +70,13 @@ const options1 = {
     },
   },
   tooltip: {
-    fixed: { enabled: false },
-    x: { show: false },
-    marker: { show: false },
+    enabled: false,
   },
 }
 
 //Etherium Chart
 const series2 = [
-  { name: "ETH", data: [25, 66, 41, 89, 63, 25, 44, 12, 36, 9, 54] },
+  { name: "Data", data: [25, 66, 41, 89, 63, 25, 44, 12, 36, 9, 54] },
 ]
 const options2 = {
   chart: { sparkline: { enabled: !0 } },
@@ -90,15 +93,13 @@ const options2 = {
     },
   },
   tooltip: {
-    fixed: { enabled: false },
-    x: { show: false },
-    marker: { show: false },
+    enabled: false,
   },
 }
 
 //LiteCoin Chart
 const series3 = [
-  { name: "LTC", data: [35, 53, 93, 47, 54, 24, 47, 75, 65, 19, 14] },
+  { name: "Data", data: [35, 53, 93, 47, 54, 24, 47, 75, 65, 19, 14] },
 ]
 const options3 = {
   chart: { sparkline: { enabled: !0 } },
@@ -115,123 +116,117 @@ const options3 = {
     },
   },
   tooltip: {
-    fixed: { enabled: false },
-    x: { show: false },
-    marker: { show: false },
+    enabled: false,
   },
 }
 
 const Dashboard = props => {
   const [modal, setmodal] = useState(false)
-  const [subscribemodal, setSubscribemodal] = useState(false)
+  const [nodes, setNodes] = useState([])
+  const [selectedNode, setSelectedNode] = useState({})
+
+  useEffect(() => {
+    fetchNodesData()
+  }, [])
+
+  const fetchNodesData = async () => {
+    try {
+      const response = await get("data/latest-readings")
+      console.log(response.data, "Nodes Readings")
+      setNodes(response.data)
+      setSelectedNode(response.data[0])
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   const { chartsData } = useSelector(state => ({
     chartsData: state.Dashboard.chartsData,
   }))
 
-  // const reports = [
-  //   { title: "Orders", iconClass: "bx-copy-alt", description: "1,235" },
-  //   { title: "Revenue", iconClass: "bx-archive-in", description: "$35, 723" },
-  //   { title: "Orders", iconClass: "bx-copy-alt", description: "1,235" },
-  //   { title: "Revenue", iconClass: "bx-archive-in", description: "$35, 723" },
-  //   { title: "Orders", iconClass: "bx-copy-alt", description: "1,235" },
-  //   { title: "Revenue", iconClass: "bx-archive-in", description: "$35, 723" },
-  //   { title: "Revenue", iconClass: "bx-archive-in", description: "$35, 723" },
-  //   {
-  //     title: "Average Price",
-  //     iconClass: "bx-purchase-tag-alt",
-  //     description: "$16.2",
-  //   },
-  // ]
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+
+  const toggle = () => setDropdownOpen(prevState => !prevState)
 
   const reports = [
     {
       title: "NO2",
-      icon: "mdi mdi-bitcoin",
       color: "warning",
-      value: "202 ppm",
-      desc: "+ 0.0012 ( 0.2 % )",
+      value: `${selectedNode?.no2}`,
+      desc: "updated today",
       series: series1,
       options: options1,
       arrowUpDown: "mdi mdi-arrow-up ms-1 text-success",
     },
     {
       title: "CH4",
-      icon: "mdi mdi-ethereum",
       color: "primary",
-      value: "300 ppm",
-      desc: "- 4.102 ( 0.1 % )",
+      value: `${selectedNode?.ch4}`,
+      desc: "updated today",
       series: series2,
       options: options2,
       arrowUpDown: "mdi mdi-arrow-down ms-1 text-danger",
     },
     {
       title: "NH3",
-      icon: "mdi mdi-litecoin",
       color: "info",
-      value: "100 ppm",
-      desc: "+ 1.792 ( 0.1 % )",
+      value: `${selectedNode?.nh3}`,
+      desc: "updated today",
       series: series3,
       options: options3,
       arrowUpDown: "mdi mdi-arrow-up ms-1 text-success",
     },
     {
-      title: "NO2",
+      title: "CO",
       icon: "mdi mdi-bitcoin",
       color: "warning",
-      value: "202 ppm",
-      desc: "+ 0.0012 ( 0.2 % )",
+      value: `${selectedNode?.co}`,
+      desc: "updated today",
       series: series1,
       options: options1,
       arrowUpDown: "mdi mdi-arrow-up ms-1 text-success",
     },
     {
-      title: "CH4",
+      title: "CO2",
       icon: "mdi mdi-ethereum",
       color: "primary",
-      value: "202 ppm",
-      desc: "- 4.102 ( 0.1 % )",
+      value: `${selectedNode.co2}`,
+      desc: "updated today",
       series: series2,
       options: options2,
       arrowUpDown: "mdi mdi-arrow-down ms-1 text-danger",
     },
     {
-      title: "NH3",
+      title: "Dust",
       icon: "mdi mdi-litecoin",
       color: "info",
-      value: "300 ppm",
-      desc: "+ 1.792 ( 0.1 % )",
+      value: `${selectedNode.dust}`,
+      desc: "updated today",
       series: series3,
       options: options3,
       arrowUpDown: "mdi mdi-arrow-up ms-1 text-success",
     },
     {
-      title: "CH4",
+      title: "PM10",
       icon: "mdi mdi-ethereum",
       color: "primary",
-      value: "100 ppm",
-      desc: "- 4.102 ( 0.1 % )",
+      value: `${selectedNode.pm_ten}`,
+      desc: "updated today",
       series: series2,
       options: options2,
       arrowUpDown: "mdi mdi-arrow-down ms-1 text-danger",
     },
     {
-      title: "NH3",
+      title: "PM1.0",
       icon: "mdi mdi-litecoin",
       color: "info",
-      value: "50 ppm",
-      desc: "+ 1.792 ( 0.1 % )",
+      value: `${selectedNode.pm_one}`,
+      desc: "updated today",
       series: series3,
       options: options3,
       arrowUpDown: "mdi mdi-arrow-up ms-1 text-success",
     },
   ]
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setSubscribemodal(true)
-  //   }, 2000)
-  // }, [])
 
   const [periodData, setPeriodData] = useState([])
   const [periodType, setPeriodType] = useState("yearly")
@@ -251,7 +246,7 @@ const Dashboard = props => {
   }, [dispatch])
 
   //meta title
-  document.title = "Dashboard | Skote - React Admin & Dashboard Template"
+  document.title = "Dashboard | NAQM"
 
   return (
     <React.Fragment>
@@ -262,13 +257,35 @@ const Dashboard = props => {
             title={props.t("Dashboards")}
             breadcrumbItem={props.t("Dashboard")}
           />
+          <Row className="mb-4">
+            <Col>
+              <h4 className="card-title">Current Node : {selectedNode.name}</h4>
+            </Col>
+            <Col style={{ display: "flex", flexDirection: "row-reverse" }}>
+              <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
+                <DropdownToggle caret>Select Node</DropdownToggle>
+                <DropdownMenu>
+                  {nodes.map(node => (
+                    <DropdownItem
+                      key={node.node_id}
+                      onClick={() => {
+                        setSelectedNode(node)
+                      }}
+                    >
+                      {node.name}
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+              </Dropdown>
+            </Col>
+          </Row>
 
           <Row>
             <Col xl="12">
               <Row>
                 <Col xl="4">
                   {/* <WelcomeComp /> */}
-                  <CurrentAqi />
+                  <CurrentAqi node={selectedNode} />
                 </Col>
                 <Col xl="8">
                   <StatisticsApplications />
@@ -278,7 +295,7 @@ const Dashboard = props => {
                 <MiniWidget reports={reports} />
               </Row>
               <Row>
-                <DataTable />
+                <DataTable node={selectedNode.node_id} />
               </Row>
             </Col>
           </Row>
