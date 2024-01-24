@@ -36,6 +36,7 @@ import { isEmpty } from "lodash"
 
 //redux
 import { useSelector, useDispatch } from "react-redux"
+import { del, get, post, put } from "helpers/api_helper"
 
 const UserTable = props => {
   //meta title
@@ -43,6 +44,9 @@ const UserTable = props => {
 
   const dispatch = useDispatch()
   const [contact, setContact] = useState()
+  const [userList, setUserList] = useState([])
+  const [modal, setModal] = useState(false)
+  const [isEdit, setIsEdit] = useState(false)
   // validation
   const validation = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
@@ -51,45 +55,44 @@ const UserTable = props => {
     initialValues: {
       name: (contact && contact.name) || "",
       email: (contact && contact.email) || "",
+      password: (contact && contact.password) || "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Please Enter Your Name"),
       email: Yup.string()
         .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Please Enter Valid Email")
         .required("Please Enter Your Email"),
+      password: isEdit
+        ? null
+        : Yup.string().required("Please Enter your Password"),
     }),
     onSubmit: values => {
       if (isEdit) {
-        const updateUser = {
-          id: contact.id,
+        const updatedUser = {
           name: values.name,
           email: values.email,
+          password: values.password,
         }
         // update user
-        dispatch(onUpdateUser(updateUser))
+        updateUser(updatedUser)
+        // dispatch(onUpdateUser(updateUser))
         setIsEdit(false)
         validation.resetForm()
       } else {
         const newUser = {
-          id: Math.floor(Math.random() * (30 - 20)) + 20,
           name: values["name"],
           email: values["email"],
+          password: values["password"],
+          role: "user",
         }
         // save new user
-        dispatch(onAddNewUser(newUser))
+        addUser(newUser)
+        // dispatch(onAddNewUser(newUser))
         validation.resetForm()
       }
       toggle()
     },
   })
-
-  const { users } = useSelector(state => ({
-    users: state.contacts.users,
-  }))
-
-  const [userList, setUserList] = useState([])
-  const [modal, setModal] = useState(false)
-  const [isEdit, setIsEdit] = useState(false)
 
   const columns = useMemo(
     () => [
@@ -150,23 +153,47 @@ const UserTable = props => {
   )
 
   useEffect(() => {
-    if (users && !users.length) {
-      dispatch(onGetUsers())
-      setIsEdit(false)
-    }
-  }, [dispatch, users])
+    getUsers()
+  }, [])
 
+  const getUsers = async () => {
+    try {
+      const reponse = await get("admin/user")
+      setUserList(reponse.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const updateUser = async updatedUser => {
+    try {
+      const response = await put(`admin/user/${contact.id}`, updatedUser)
+      getUsers()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const deleteUser = async () => {
+    try {
+      const response = await del(`admin/user/${contact.id}`)
+      getUsers()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const addUser = async user => {
+    try {
+      const reponse = await post("admin/user", user)
+      getUsers()
+    } catch (err) {
+      console.log(err)
+    }
+  }
   useEffect(() => {
-    setContact(users)
     setIsEdit(false)
-  }, [users])
-
-  useEffect(() => {
-    if (!isEmpty(users) && !!isEdit) {
-      setContact(users)
-      setIsEdit(false)
-    }
-  }, [users])
+  }, [])
 
   const toggle = () => {
     setModal(!modal)
@@ -176,12 +203,9 @@ const UserTable = props => {
     const user = arg
 
     setContact({
-      id: user.id,
+      id: user._id,
       name: user.name,
-      designation: user.designation,
       email: user.email,
-      tags: user.tags,
-      projects: user.projects,
     })
     setIsEdit(true)
 
@@ -205,20 +229,21 @@ const UserTable = props => {
   const [deleteModal, setDeleteModal] = useState(false)
 
   const onClickDelete = users => {
-    setContact(users)
+    setContact({
+      id: users._id,
+    })
     setDeleteModal(true)
   }
 
   const handleDeleteUser = () => {
     if (contact && contact.id) {
-      dispatch(onDeleteUser(contact.id))
+      deleteUser()
     }
     onPaginationPageChange(1)
     setDeleteModal(false)
   }
 
   const handleUserClicks = () => {
-    setUserList("")
     setIsEdit(false)
     toggle()
   }
@@ -242,7 +267,7 @@ const UserTable = props => {
                 <CardBody>
                   <TableContainer
                     columns={columns}
-                    data={users}
+                    data={userList}
                     isGlobalFilter={true}
                     isAddUserList={true}
                     handleUserClick={handleUserClicks}
@@ -311,29 +336,31 @@ const UserTable = props => {
                                 </FormFeedback>
                               ) : null}
                             </div>
-                            <div className="mb-3">
-                              <Label className="form-label">Password</Label>
-                              <Input
-                                name="password"
-                                type="text"
-                                placeholder="Insert Password"
-                                onChange={validation.handleChange}
-                                onBlur={validation.handleBlur}
-                                value={validation.values.name || ""}
-                                invalid={
-                                  validation.touched.name &&
-                                  validation.errors.name
-                                    ? true
-                                    : false
-                                }
-                              />
-                              {validation.touched.name &&
-                              validation.errors.name ? (
-                                <FormFeedback type="invalid">
-                                  {validation.errors.name}
-                                </FormFeedback>
-                              ) : null}
-                            </div>
+                            {!isEdit && (
+                              <div className="mb-3">
+                                <Label className="form-label">Password</Label>
+                                <Input
+                                  name="password"
+                                  type="text"
+                                  placeholder="Insert Password"
+                                  onChange={validation.handleChange}
+                                  onBlur={validation.handleBlur}
+                                  value={validation.values.password || ""}
+                                  invalid={
+                                    validation.touched.password &&
+                                    validation.errors.password
+                                      ? true
+                                      : false
+                                  }
+                                />
+                                {validation.touched.password &&
+                                validation.errors.password ? (
+                                  <FormFeedback type="invalid">
+                                    {validation.errors.password}
+                                  </FormFeedback>
+                                ) : null}
+                              </div>
+                            )}
                           </Col>
                         </Row>
                         <Row>

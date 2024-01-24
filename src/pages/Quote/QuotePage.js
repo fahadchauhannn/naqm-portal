@@ -3,23 +3,23 @@ import { Container } from "reactstrap"
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
-import UserTable from "./UserTable"
+import QuoteTable from "./QuoteTable"
 
-const Users = () => {
+const QuotePage = () => {
   //meta title
-  document.title = "Stater Page | Skote - React Admin & Dashboard Template"
+  document.title = "Quote Page "
 
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumbs */}
-          <Breadcrumbs title="Users" breadcrumbItem="Users" />
-          <UserTable />
+          <Breadcrumbs title="Quote Requests" breadcrumbItem="Quote Requests" />
+          <QuoteTable />
         </Container>
       </div>
     </React.Fragment>
   )
 }
 
-export default Users
+export default QuotePage

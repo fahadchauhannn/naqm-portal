@@ -35,6 +35,7 @@ const Navbar = props => {
   const [utility, setutility] = useState(false)
 
   const login = localStorage.getItem("authUser")
+  const role = localStorage.getItem("role")
 
   useEffect(() => {
     var matchingMenuItem = null
@@ -154,6 +155,21 @@ const Navbar = props => {
                   </li>
                 )}
                 {login && (
+                  <li className="nav-item dropdown">
+                    <Link
+                      className="nav-link dropdown-toggle arrow-none"
+                      // onClick={e => {
+                      //   e.preventDefault()
+                      //   // setdashboard(!dashboard)
+                      // }}
+                      to="/quote"
+                    >
+                      <i className="bx bx-tone me-2"></i>
+                      {props.t("Quote")}
+                    </Link>
+                  </li>
+                )}
+                {login && role !== "user" && (
                   <li className="nav-item dropdown">
                     <Link
                       className="nav-link dropdown-toggle arrow-none"

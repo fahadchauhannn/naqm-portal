@@ -115,10 +115,13 @@ import ContactsProfile from "../pages/Contacts/ContactsProfile/contacts-profile"
 import HomePage from "pages/Home/HomePage"
 import UserTable from "pages/users/UserTable"
 import Dashboard from "pages/Dashboard"
+import QuoteTable from "pages/Quote/QuoteTable"
 
 const authProtectedRoutes = [
   // Dashboard
   { path: "/dashboard", component: <Dashboard /> },
+
+  { path: "/quote", component: <QuoteTable /> },
 
   //Home
   { path: "/Home", component: <HomePage /> },

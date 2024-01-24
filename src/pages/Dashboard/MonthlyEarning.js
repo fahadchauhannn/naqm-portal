@@ -43,7 +43,7 @@ const CurrentAqi = props => {
           <Row>
             <Col sm="6">
               <p className="text-muted">At Node</p>
-              <h3>{node?.humid} g.m-3</h3>
+              <h3>{node?.humid} %</h3>
             </Col>
             <Col sm="6">
               <img width={"50px"} src={humid} alt="water drops" />

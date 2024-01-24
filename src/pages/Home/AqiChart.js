@@ -1,17 +1,52 @@
 import getChartColorsArray from "components/Common/ChartsDynamicColor"
-import React from "react"
+import { get } from "helpers/api_helper"
+import React, { useEffect, useState } from "react"
 import ReactApexChart from "react-apexcharts"
 import { Card, CardBody } from "reactstrap"
 
 const AqiChart = ({ dataColors }) => {
   const spineareaChartColors = getChartColorsArray(dataColors)
+  const [series, setSeries] = useState([])
+  const [labels, setLabels] = useState([])
+  // const [data, setData] = useState([])
 
-  const series = [
-    {
-      name: "AQI-NUST",
-      data: [34, 40, 28, 52, 42, 109, 100],
-    },
-  ]
+  useEffect(() => {
+    fetchGraphData()
+  }, [])
+
+  const fetchGraphData = async () => {
+    try {
+      const response = await get("data/aqi-graph")
+      console.log(response.data, "AQI DATA")
+      const data = response.data.map(item => {
+        return item.aqi
+      })
+      const label = response.data.map(item => {
+        return `${item.date.year}-${String(item.date.month).padStart(
+          2,
+          "0"
+        )}-${String(item.date.day).padStart(2, "0")}`
+      })
+
+      console.log(label, "label")
+      setLabels(label)
+      setSeries([
+        {
+          name: "AQI-MUST",
+          data: data,
+        },
+      ])
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  // const series = [
+  //   {
+  //     name: "AQI-NUST",
+  //     data: [34, 40, 28, 52, 42, 109, 100],
+  //   },
+  // ]
 
   const options = {
     dataLabels: {
@@ -30,22 +65,14 @@ const AqiChart = ({ dataColors }) => {
     },
     xaxis: {
       type: "datetime",
-      categories: [
-        "2018-09-19T00:00:00",
-        "2018-09-19T01:30:00",
-        "2018-09-19T02:30:00",
-        "2018-09-19T03:30:00",
-        "2018-09-19T04:30:00",
-        "2018-09-19T05:30:00",
-        "2018-09-19T06:30:00",
-      ],
+      categories: labels,
     },
     grid: {
       borderColor: "#f1f1f1",
     },
     tooltip: {
       x: {
-        format: "dd/MM/yy HH:mm",
+        format: "dd/MM/yy",
       },
     },
   }
