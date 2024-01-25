@@ -13,7 +13,6 @@ const PollutionTable = () => {
   const fetchTableData = async () => {
     try {
       const response = await get("data/latest-readings")
-      console.log(response.data, "Latest Readings")
       setData(response.data)
     } catch (err) {
       console.log(err)

@@ -53,7 +53,7 @@ const AqiCalendar = () => {
     return style
   }
   return (
-    <div>
+    <div style={{ marginBottom: "20px" }}>
       <Calendar
         className={styles.calendar}
         onChange={onChange}

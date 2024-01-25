@@ -20,7 +20,6 @@ const DataTable = props => {
   const fetchNodesData = async () => {
     try {
       const response = await get(`data/latest-readings/node/${node}`)
-      console.log(response.data, "my data")
       setTableData(response.data)
     } catch (err) {
       console.log(err)

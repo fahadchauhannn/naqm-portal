@@ -38,6 +38,7 @@ import { useFormik } from "formik"
 import * as Yup from "yup"
 import styles from "./Home.module.css"
 import { post } from "helpers/api_helper"
+import AqiCategory from "./AqiCategory"
 
 const HomePage = () => {
   //meta title
@@ -139,7 +140,8 @@ const HomePage = () => {
               <PollutedListCard />
               <CleanestListCard />
               <AqiCalendar />
-              <AqiChart dataColors='["--bs-warning"]' />
+              <AqiCategory />
+              {/* <AqiChart dataColors='["--bs-warning"]' /> */}
             </Col>
             <Col md={8}>
               <CurrentAqiCard />

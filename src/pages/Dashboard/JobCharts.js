@@ -71,27 +71,28 @@ const JobWidgetCharts = ({ dataColors, series }) => {
 
 const StatisticsApplicationsChart = ({ seriesData, dataColors }) => {
   var statisticsApplicationColors = getChartColorsArray(dataColors)
+  console.log("Series Data", seriesData)
 
   const series = [
     {
       name: "Dust",
       type: "column",
-      data: seriesData.companay || [],
+      data: seriesData.dust || [],
     },
     {
       name: "CO",
       type: "column",
-      data: seriesData.newjobs || [],
+      data: seriesData.co || [],
     },
     {
       name: "AQI",
       type: "area",
-      data: seriesData.totaljobs || [],
+      data: seriesData.aqi || [],
     },
     {
-      name: "CH4",
+      name: "CO2",
       type: "line",
-      data: seriesData.jobview || [],
+      data: seriesData.co2 || [],
     },
   ]
   var options = {
@@ -127,7 +128,7 @@ const StatisticsApplicationsChart = ({ seriesData, dataColors }) => {
         stops: [0, 100, 100, 100],
       },
     },
-    labels: seriesData.label || [],
+    labels: seriesData.labels || [],
     colors: statisticsApplicationColors,
     markers: {
       size: 0,

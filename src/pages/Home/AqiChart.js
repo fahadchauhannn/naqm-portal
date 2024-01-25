@@ -17,7 +17,6 @@ const AqiChart = ({ dataColors }) => {
   const fetchGraphData = async () => {
     try {
       const response = await get("data/aqi-graph")
-      console.log(response.data, "AQI DATA")
       const data = response.data.map(item => {
         return item.aqi
       })

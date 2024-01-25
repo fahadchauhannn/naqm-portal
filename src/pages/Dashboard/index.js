@@ -18,9 +18,6 @@ import {
   DropdownToggle,
   DropdownItem,
 } from "reactstrap"
-import { Link } from "react-router-dom"
-
-import classNames from "classnames"
 
 //import Charts
 import StackedColumnChart from "./StackedColumnChart"
@@ -28,12 +25,7 @@ import StackedColumnChart from "./StackedColumnChart"
 //import action
 import { getChartsData as onGetChartsData } from "../../store/actions"
 
-import modalimage1 from "../../assets/images/product/img-7.png"
-import modalimage2 from "../../assets/images/product/img-4.png"
-
 // Pages Components
-import SocialSource from "./SocialSource"
-import ActivityComp from "./ActivityComp"
 import TopCities from "./TopCities"
 import LatestTranaction from "./LatestTranaction"
 
@@ -132,17 +124,12 @@ const Dashboard = props => {
   const fetchNodesData = async () => {
     try {
       const response = await get("data/latest-readings")
-      console.log(response.data, "Nodes Readings")
       setNodes(response.data)
       setSelectedNode(response.data[0])
     } catch (err) {
       console.log(err)
     }
   }
-
-  const { chartsData } = useSelector(state => ({
-    chartsData: state.Dashboard.chartsData,
-  }))
 
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
@@ -228,23 +215,6 @@ const Dashboard = props => {
     },
   ]
 
-  const [periodData, setPeriodData] = useState([])
-  const [periodType, setPeriodType] = useState("yearly")
-
-  useEffect(() => {
-    setPeriodData(chartsData)
-  }, [chartsData])
-
-  const onChangeChartPeriod = pType => {
-    setPeriodType(pType)
-    dispatch(onGetChartsData(pType))
-  }
-
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(onGetChartsData("yearly"))
-  }, [dispatch])
-
   //meta title
   document.title = "Dashboard | NAQM"
 
@@ -265,14 +235,14 @@ const Dashboard = props => {
               <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
                 <DropdownToggle caret>Select Node</DropdownToggle>
                 <DropdownMenu>
-                  {nodes.map(node => (
+                  {nodes.map((node, index) => (
                     <DropdownItem
                       key={node.node_id}
                       onClick={() => {
                         setSelectedNode(node)
                       }}
                     >
-                      {node.name}
+                      Node {node.node_id} : {node.name}
                     </DropdownItem>
                   ))}
                 </DropdownMenu>
