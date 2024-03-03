@@ -17,35 +17,35 @@ const AqiCategory = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className={styles.success}>
-                <td>Good</td>
-                <td>Green</td>
-                <td>0 to 50</td>
+              <tr className={styles.successColor}>
+                <td className={styles.successColor}>Good</td>
+                <td className={styles.successColor}>Green</td>
+                <td className={styles.successColor}>0 to 50</td>
               </tr>
               <tr className={styles.moderate}>
-                <td>Moderate</td>
-                <td>Yellow</td>
-                <td>51 to 100</td>
+                <td className={styles.moderate}>Moderate</td>
+                <td className={styles.moderate}>Yellow</td>
+                <td className={styles.moderate}>51 to 100</td>
               </tr>
               <tr className={styles.unhealthy}>
-                <td>Unhealthy(Sensetive)</td>
-                <td>Orange</td>
-                <td>101 to 150</td>
+                <td className={styles.unhealthy}>Unhealthy(Sensetive)</td>
+                <td className={styles.unhealthy}>Orange</td>
+                <td className={styles.unhealthy}>101 to 150</td>
               </tr>
               <tr className={styles.danger}>
-                <td>Unhealthy</td>
-                <td>Red</td>
-                <td>151 to 200</td>
+                <td className={styles.danger}>Unhealthy</td>
+                <td className={styles.danger}>Red</td>
+                <td className={styles.danger}>151 to 200</td>
               </tr>
               <tr className={styles.veryUnhealthy}>
-                <td>Very Unhealthy</td>
-                <td>Purple</td>
-                <td>201 to 300</td>
+                <td className={styles.veryUnhealthy}>Very Unhealthy</td>
+                <td className={styles.veryUnhealthy}>Purple</td>
+                <td className={styles.veryUnhealthy}>201 to 300</td>
               </tr>
               <tr className={styles.hazardous}>
-                <td>Hazardous</td>
-                <td>Maroon</td>
-                <td>301 & higher</td>
+                <td className={styles.hazardous}>Hazardous</td>
+                <td className={styles.hazardous}>Maroon</td>
+                <td className={styles.hazardous}>301 & higher</td>
               </tr>
             </tbody>
           </Table>

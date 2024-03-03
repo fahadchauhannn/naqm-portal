@@ -177,7 +177,7 @@ const Dashboard = props => {
       title: "CO2",
       icon: "mdi mdi-ethereum",
       color: "primary",
-      value: `${selectedNode.co2}  ppm`,
+      value: `${selectedNode?.co2}  ppm`,
       desc: "updated today",
       series: series2,
       options: options2,
@@ -187,7 +187,7 @@ const Dashboard = props => {
       title: "Dust",
       icon: "mdi mdi-litecoin",
       color: "info",
-      value: `${selectedNode.dust}  ug/m3`,
+      value: `${selectedNode?.dust}  ug/m3`,
       desc: "updated today",
       series: series3,
       options: options3,
@@ -197,7 +197,7 @@ const Dashboard = props => {
       title: "PM10",
       icon: "mdi mdi-ethereum",
       color: "primary",
-      value: `${selectedNode.pm_ten} ug/m3`,
+      value: `${selectedNode?.pm_ten} ug/m3`,
       desc: "updated today",
       series: series2,
       options: options2,
@@ -207,7 +207,7 @@ const Dashboard = props => {
       title: "PM1.0",
       icon: "mdi mdi-litecoin",
       color: "info",
-      value: `${selectedNode.pm_one}  ug/m3`,
+      value: `${selectedNode?.pm_one}  ug/m3`,
       desc: "updated today",
       series: series3,
       options: options3,
@@ -229,7 +229,9 @@ const Dashboard = props => {
           />
           <Row className="mb-4">
             <Col>
-              <h4 className="card-title">Current Node : {selectedNode.name}</h4>
+              <h4 className="card-title">
+                Current Node : {selectedNode?.name}
+              </h4>
             </Col>
             <Col style={{ display: "flex", flexDirection: "row-reverse" }}>
               <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
@@ -237,12 +239,12 @@ const Dashboard = props => {
                 <DropdownMenu>
                   {nodes.map((node, index) => (
                     <DropdownItem
-                      key={node.node_id}
+                      key={node?.node_id}
                       onClick={() => {
                         setSelectedNode(node)
                       }}
                     >
-                      Node {node.node_id} : {node.name}
+                      Node {node?.node_id} : {node?.name}
                     </DropdownItem>
                   ))}
                 </DropdownMenu>
@@ -265,7 +267,7 @@ const Dashboard = props => {
                 <MiniWidget reports={reports} />
               </Row>
               <Row>
-                <DataTable node={selectedNode.node_id} />
+                <DataTable node={selectedNode?.node_id} />
               </Row>
             </Col>
           </Row>
