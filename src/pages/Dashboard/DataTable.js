@@ -2,12 +2,24 @@ import TableContainer from "components/Common/TableContainer"
 import { get } from "helpers/api_helper"
 import React, { useEffect, useMemo, useState } from "react"
 
-const Date = cell => {
-  console.log("celll", cell)
-  return cell.value ? cell.value.slice(0, 10) : ""
-}
+// const Date = cell => {
+//   console.log("celll", cell)
+//   return cell.value ? cell.value.slice(0, 10) : ""
+// }
 
+const DateCell = (cell) => {
+  console.log("celll", cell);
+  return cell.value
+    ? new Date(cell.value).toLocaleString("en-PK", {
+      timeZone: "Asia/Karachi",
+      dateStyle: "medium",
+      timeStyle: "medium",
+    })
+    : "";
+};
 const DataTable = props => {
+
+
   const { node } = props
 
   console.log(node, "Node for table data")
@@ -19,20 +31,29 @@ const DataTable = props => {
 
   const fetchNodesData = async () => {
     try {
-      const response = await get(`data/latest-readings/node/${node}`)
-      setTableData(response.data)
+      const response = await get(`data/latest-readings/node/${node}`);
+
+      // Assuming the response data has a "created_at" field
+      const sortedData = response.data.sort((a, b) => {
+        return new Date(b.created_at) - new Date(a.created_at);
+      });
+
+      // Reverse the order to have the latest date data at the top
+      const reversedData = sortedData.reverse();
+
+      setTableData(reversedData);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   const columns = useMemo(
     () => [
       {
         Header: "Created At",
         accessor: "created_at",
-        Cell: cellProps => {
-          return <Date {...cellProps} />
+        Cell: (cellProps) => {
+          return <DateCell {...cellProps} />;
         },
       },
       {

@@ -162,22 +162,22 @@ const MapComponent = (props) => {
     [33.642983, 72.988272, 100],
   ];
 
-  const getRgbColor = (color) => {
+  const getRgbaColor = (color, transparency = 1) => {
     switch (color) {
       case "green":
-        return 'rgb(0, 128, 0)';
+        return `rgba(0, 128, 0, ${transparency})`;
       case "yellow":
-        return 'rgb(255, 255, 0)';
+        return `rgba(255, 255, 0, ${transparency})`;
       case "orange":
-        return 'rgb(255, 165, 0)';
+        return `rgba(255, 165, 0, ${transparency})`;
       case "red":
-        return 'rgb(255, 0, 0)';
+        return `rgba(255, 0, 0, ${transparency})`;
       case "purple":
-        return 'rgb(128, 0, 128)';
+        return `rgba(128, 0, 128, ${transparency})`;
       case "maroon":
-        return 'rgb(128, 0, 0)';
+        return `rgba(128, 0, 0, ${transparency})`;
       default:
-        return 'rgb(169, 169, 169)'; // Default color for unknown values
+        return `rgba(169, 169, 169, ${transparency})`; // Default color for unknown values
     }
   };
   const getColorScale = () => {
@@ -207,7 +207,7 @@ const MapComponent = (props) => {
               mode: "markers",
               marker: {
                 size: 70,
-                color: sensor_data.map((data) => getRgbColor(aqiColorRanges.find((range) => data[2] >= range.min && data[2] <= range.max)?.color)),
+                color: sensor_data.map((data) => getRgbaColor(aqiColorRanges.find((range) => data[2] >= range.min && data[2] <= range.max)?.color, 0.5)),
                 colorscale: getColorScale(),
                 cmin: 0,
                 cmax: 301,
