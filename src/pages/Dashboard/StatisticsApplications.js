@@ -1,98 +1,85 @@
-import React, { useState, useEffect } from "react"
-import { Card, CardBody, Col, Nav, NavItem, NavLink } from "reactstrap"
-import { StatisticsApplicationsChart } from "./JobCharts"
-import { get } from "helpers/api_helper"
+import React, { useState } from "react";
+import { Card, CardBody, Col, Button } from "reactstrap";
+import uploadIcon from "../../assets/images/upload.png"; // Import the upload icon image
 
-const StatisticsApplications = () => {
-  const [duration, setDuration] = useState("week")
-  const [data, setData] = useState({})
+const VideoUploader = () => {
+  const [uploadedVideo, setUploadedVideo] = useState(null);
+  const [showUpload, setShowUpload] = useState(true);
 
-  const changeDuration = duration => {
-    setDuration(duration)
-  }
-  useEffect(() => {
-    fetchData()
-  }, [duration])
+  const handleVideoUpload = (event) => {
+    const selectedVideo = event.target.files[0];
 
-  const fetchData = async () => {
-    try {
-      const response = await get(`admin/data/average-graph/${duration}`)
-      console.log(response.data, "my data graph")
-      let labels
-      if (duration === "week") {
-        labels = response.data.labels?.map(date => {
-          return `${date.year}-${String(date.month).padStart(2, "0")}-${String(
-            date.day
-          ).padStart(2, "0")}`
-        })
-      }
-      if (duration === "month") {
-        labels = response.data.labels?.map(date => {
-          return `${date.year}-${String(date.month).padStart(2, "0")}`
-        })
-      }
-      if (duration === "year") {
-        labels = response.data.labels?.map(date => {
-          return `${date.year}`
-        })
-      }
+    // Assuming you are using a function to upload the video to a server
+    // Replace the following line with your actual upload logic
+    uploadVideo(selectedVideo);
+  };
 
-      console.log("Label", labels)
-      setData({ ...response.data, labels })
-    } catch (err) {
-      console.log(err)
-    }
-  }
+  const uploadVideo = (video) => {
+    // Simulating video upload delay (replace with actual upload logic)
+    setTimeout(() => {
+      setUploadedVideo(URL.createObjectURL(video));
+      setShowUpload(false); // Hide the upload section after successful upload
+    }, 2000);
+  };
 
   return (
-    <React.Fragment>
-      <Col lg={12}>
-        <Card>
-          <CardBody>
-            <div className="d-sm-flex flex-wrap">
-              <h4 className="card-title mb-4">AIR QUALITY INDEX</h4>
-              <div className="ms-auto">
-                <Nav pills>
-                  <NavItem>
-                    <NavLink
-                      className={duration === "week" ? "active" : ""}
-                      href="#"
-                      onClick={() => changeDuration("week")}
-                    >
-                      Week
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      className={duration === "month" ? "active" : ""}
-                      href="#"
-                      onClick={() => changeDuration("month")}
-                    >
-                      Month
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      className={duration === "year" ? "active" : ""}
-                      href="#"
-                      onClick={() => changeDuration("year")}
-                    >
-                      Year
-                    </NavLink>
-                  </NavItem>
-                </Nav>
+    <Col lg={12} style={{ height: "100%", width: "100%", position: "relative" }}>
+      <Card>
+        <CardBody style={{ textAlign: "center", display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+          {showUpload ? (
+            <div>
+              <div style={{ width: '100%', height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                <img src={uploadIcon} alt="Upload Icon" style={{ width: '50px', height: '50px' }} />
+                <p>Click to Upload a Video</p>
+                <input
+                  type="file"
+                  accept="video/*"
+                  onChange={handleVideoUpload}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    opacity: 0,
+                    cursor: "pointer",
+                  }}
+                />
               </div>
             </div>
-            <StatisticsApplicationsChart
-              seriesData={data}
-              dataColors='["--bs-primary", "--bs-success", "--bs-warning", "--bs-info"]'
-              dir="ltr"
-            />
-          </CardBody>
-        </Card>
-      </Col>
-    </React.Fragment>
-  )
-}
+          ) : (
+            <div style={{ height: "100%", width: "100%", position: "relative" }}>
+              <video width="100%" height="100%" controls>
+                <source src={uploadedVideo} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          )}
+        </CardBody>
+      </Card>
+      <div style={{ width: '100%', height: '100%', position: "relative" }}>
+        <input
+          type="file"
+          accept="video/*"
+          onChange={handleVideoUpload}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            opacity: 0,
+            cursor: "pointer",
+          }}
+        />
+        <label style={{ width: '100%' }}>
+          <Button color="primary" style={{ cursor: "pointer", width: '100%' }}>
+            Upload a Video <i className="fa fa-plus-circle" style={{}} />
+          </Button>
+        </label>
+      </div>
+    </Col>
+  );
+};
 
-export default StatisticsApplications
+export default VideoUploader;

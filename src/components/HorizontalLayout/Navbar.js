@@ -97,7 +97,7 @@ const Navbar = props => {
 
   return (
     <React.Fragment>
-      <div className="topnav">
+      <div className="topnav" style={{ zIndex: '9999' }}>
         <div className="container-fluid">
           <nav
             className="navbar navbar-light navbar-expand-lg topnav-menu"
@@ -154,14 +154,11 @@ const Navbar = props => {
                   </div> */}
                   </li>
                 )}
-                {login && (
+                {/* {login && (
                   <li className="nav-item dropdown">
                     <Link
                       className="nav-link dropdown-toggle arrow-none"
-                      // onClick={e => {
-                      //   e.preventDefault()
-                      //   // setdashboard(!dashboard)
-                      // }}
+                     
                       to="/quote"
                     >
                       <i className="bx bx-tone me-2"></i>
@@ -173,17 +170,14 @@ const Navbar = props => {
                   <li className="nav-item dropdown">
                     <Link
                       className="nav-link dropdown-toggle arrow-none"
-                      // onClick={e => {
-                      //   e.preventDefault()
-                      //   // setdashboard(!dashboard)
-                      // }}
+                      
                       to="/users"
                     >
                       <i className="bx bx-collection me-2"></i>
                       {props.t("Users")}
                     </Link>
                   </li>
-                )}
+                )} */}
 
                 {/* {login && (
                   <li className="nav-item dropdown">

@@ -42,9 +42,9 @@ const PollutionTable = () => {
   return (
     <Card className={styles.cardContainer}>
       <CardHeader className={styles.headerTable}>
-        NUST- Locations Air Pullution Level
+        Orchard - Locations
       </CardHeader>
-      <CardBody>
+      {/* <CardBody>
         <div className="table-responsive">
           <Table className="table mb-0">
             <thead>
@@ -75,7 +75,7 @@ const PollutionTable = () => {
             </tbody>
           </Table>
         </div>
-      </CardBody>
+      </CardBody> */}
     </Card>
   )
 }

@@ -11,41 +11,71 @@ const AqiCategory = () => {
           <Table className="table mb-0">
             <thead>
               <tr>
-                <th>Category</th>
-                <th>Color</th>
-                <th>AQI</th>
+                <th>Month</th>
+                <th>Count</th>
+
               </tr>
             </thead>
             <tbody>
               <tr className={styles.successColor}>
-                <td className={styles.successColor}>Good</td>
-                <td className={styles.successColor}>Green</td>
-                <td className={styles.successColor}>0 to 50</td>
+
+                <td className={styles.successColor}>January</td>
+                <td className={styles.successColor}>2500</td>
               </tr>
               <tr className={styles.moderate}>
-                <td className={styles.moderate}>Moderate</td>
-                <td className={styles.moderate}>Yellow</td>
-                <td className={styles.moderate}>51 to 100</td>
+
+                <td className={styles.moderate}>Febuary</td>
+                <td className={styles.moderate}>3512</td>
               </tr>
               <tr className={styles.unhealthy}>
-                <td className={styles.unhealthy}>Unhealthy(Sensetive)</td>
-                <td className={styles.unhealthy}>Orange</td>
-                <td className={styles.unhealthy}>101 to 150</td>
+
+                <td className={styles.unhealthy}>March</td>
+                <td className={styles.unhealthy}>4621</td>
               </tr>
               <tr className={styles.danger}>
-                <td className={styles.danger}>Unhealthy</td>
-                <td className={styles.danger}>Red</td>
-                <td className={styles.danger}>151 to 200</td>
+
+                <td className={styles.danger}>April</td>
+                <td className={styles.danger}>981</td>
               </tr>
               <tr className={styles.veryUnhealthy}>
-                <td className={styles.veryUnhealthy}>Very Unhealthy</td>
-                <td className={styles.veryUnhealthy}>Purple</td>
-                <td className={styles.veryUnhealthy}>201 to 300</td>
+
+                <td className={styles.veryUnhealthy}>May</td>
+                <td className={styles.veryUnhealthy}>991</td>
               </tr>
               <tr className={styles.hazardous}>
-                <td className={styles.hazardous}>Hazardous</td>
-                <td className={styles.hazardous}>Maroon</td>
-                <td className={styles.hazardous}>301 & higher</td>
+
+                <td className={styles.hazardous}>June</td>
+                <td className={styles.hazardous}>2300</td>
+              </tr>
+              <tr className={styles.unhealthy}>
+
+                <td className={styles.unhealthy}>July</td>
+                <td className={styles.unhealthy}>2352</td>
+              </tr>
+              <tr className={styles.successColor}>
+
+                <td className={styles.successColor}>August</td>
+                <td className={styles.successColor}>8123</td>
+              </tr>
+              <tr className={styles.danger}>
+
+                <td className={styles.danger}>September</td>
+                <td className={styles.danger}>551</td>
+              </tr>
+              <tr className={styles.moderate}>
+
+                <td className={styles.moderate}>October</td>
+                <td className={styles.moderate}>1200</td>
+              </tr>
+              <tr className={styles.unhealthy}>
+
+                <td className={styles.unhealthy}>November</td>
+                <td className={styles.unhealthy}>1244</td>
+              </tr>
+              <tr className={styles.danger}>
+
+                <td className={styles.danger}>December</td>
+                <td className={styles.danger}>1294</td>
               </tr>
             </tbody>
           </Table>

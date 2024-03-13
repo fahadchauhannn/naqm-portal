@@ -11,7 +11,7 @@
 }
 
 .primaryText {
-  color: #008080;
+  color: orange;
 }
 
 .cardContainer {
@@ -21,7 +21,7 @@
 }
 
 .headerTable {
-  background-color: #008080 !important;
+  background-color: orange !important;
   color: white !important;
   font-size: 15px;
   font-weight: 500;
@@ -30,7 +30,7 @@
 /* LIST CARDS */
 
 .title {
-  color: #008080 !important;
+  color: orange !important;
 }
 
 .aqiCon {
@@ -90,7 +90,7 @@
 
 .footerCard {
   margin-top: 10px;
-  background-color: #008080 !important;
+  background-color: orange !important;
   color: white !important;
   text-align: center;
   cursor: pointer;
@@ -131,19 +131,19 @@
 }
 
 .img {
-  width: 60px;
+  width: 320px;
 }
 
 /* Pollution Table */
 
 .column1 {
-  color: #008080;
+  color: orange;
 }
 
 /* Air Pollutant Card */
 .PollutantTitle {
   text-align: center !important;
-  color: #008080;
+  color: orange;
   font-size: 20px;
   font-weight: 500;
 }
@@ -204,4 +204,12 @@
   font-size: 15px;
   font-weight: 600;
   padding-bottom: 5px;
+}
+
+
+.carousel-image {
+  max-width: 100%; /* Set the maximum width to 100% of the container */
+  max-height: 300px; /* Set the maximum height as needed */
+  margin: 0 auto; /* Center the image horizontally within the container */
+  display: block; /* Remove any default inline spacing */
 }

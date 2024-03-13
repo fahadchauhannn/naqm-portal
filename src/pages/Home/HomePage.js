@@ -20,7 +20,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
 import MapsGoogle from "pages/Maps/MapsGoogle"
-import MapComponent from "./MapComponent"
+// import MapComponent from "./MapComponent"
 import PollutedListCard from "./PollutedListCard"
 import CleanestListCard from "./CleanestListCard"
 import CurrentAqiCard from "./CurrentAqiCard"
@@ -39,6 +39,8 @@ import * as Yup from "yup"
 import styles from "./Home.module.css"
 import { post } from "helpers/api_helper"
 import AqiCategory from "./AqiCategory"
+import Crousal from "./Crousal"
+import Gmap from "./MapComponent"
 
 const HomePage = () => {
   //meta title
@@ -131,14 +133,16 @@ const HomePage = () => {
 
   return (
     <HorizontalLayout>
-      <div className="page-content">
+      <div className="page-content" style={{ paddingBottom: '100px' }}>
         <Headline />
-        <MapComponent />
-        <Container fluid>
+        <Crousal />
+        {/* estimated yeild over the year    */}
+
+        <Container fluid style={{ paddingTop: '160px' }}>
           <Row>
             <Col md={4}>
-              <PollutedListCard />
-              <CleanestListCard />
+              {/* <PollutedListCard />
+              <CleanestListCard /> */}
               <AqiCalendar />
               <AqiCategory />
               {/* <AqiChart dataColors='["--bs-warning"]' /> */}
@@ -146,12 +150,13 @@ const HomePage = () => {
             <Col md={8}>
               <CurrentAqiCard />
               <PollutionTable />
-              <AqiChart dataColors='["--bs-primary"]' />
-              <AirPollutantCard />
-              <ForeCast />
+              <Gmap />
+              {/* <AqiChart dataColors='["--bs-primary"]' /> */}
+              {/* <AirPollutantCard /> */}
+              {/* <ForeCast /> */}
             </Col>
           </Row>
-          <Row style={{ marginTop: "25px" }}>
+          {/* <Row style={{ marginTop: "25px" }}>
             {products.map(item => (
               <Col key={item.id} md={4}>
                 <Card
@@ -182,7 +187,7 @@ const HomePage = () => {
                 </Card>
               </Col>
             ))}
-          </Row>
+          </Row> */}
         </Container>
         <Modal isOpen={modal} toggle={toggle}>
           <ModalHeader toggle={toggle} tag="h4">
@@ -268,13 +273,13 @@ const HomePage = () => {
                           value={validation.values.number || ""}
                           invalid={
                             validation.touched.number &&
-                            validation.errors.number
+                              validation.errors.number
                               ? true
                               : false
                           }
                         />
                         {validation.touched.number &&
-                        validation.errors.number ? (
+                          validation.errors.number ? (
                           <FormFeedback type="invalid">
                             {validation.errors.number}
                           </FormFeedback>

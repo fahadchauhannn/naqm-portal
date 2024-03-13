@@ -20,7 +20,7 @@ import NotificationDropdown from "../CommonForBoth/TopbarDropdown/NotificationDr
 import ProfileMenu from "../CommonForBoth/TopbarDropdown/ProfileMenu"
 
 import megamenuImg from "../../assets/images/megamenu-img.png"
-import logo from "../../assets/images/aqm.png"
+import logo from "./images/logo.jpg"
 import logoLight from "../../assets/images/logo-light.png"
 import logoLightSvg from "../../assets/images/logo-light.svg"
 import logoDark from "../../assets/images/logo-dark.png"
@@ -274,10 +274,10 @@ const Header = props => {
                 margin: 0,
                 fontSize: "15px",
                 fontWeight: "600",
-                color: "#008080",
+                color: "orange",
               }}
             >
-              Eco-Sniffer
+              Citrus Park
             </p>
           </div>
 

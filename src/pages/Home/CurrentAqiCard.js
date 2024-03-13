@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import styles from "./Home.module.css"
 import { Card, CardBody, CardTitle, Col, Row } from "reactstrap"
-import image from "../../assets/images/custom/cough.jpg"
+import image from "../../assets/images/o.jpg"
 import { get } from "helpers/api_helper"
 
 const CurrentAqiCard = () => {
@@ -49,29 +49,29 @@ const CurrentAqiCard = () => {
     <Card>
       <CardBody>
         <CardTitle className={styles.headerTitle}>
-          NUST Air Quality Index (AQI){" "}
-          <span className={styles.dangerText}>LIVE</span>
+          Revolutionizing Fruit Management: CitrusPak's Innovative Solutions Lead the Way
+          {/* <span className={styles.dangerText}>LIVE</span> */}
         </CardTitle>
         <p className={styles.bigText}>
-          Real-time average air pollution level NUST
+          Empowering Farmers with Cutting-Edge Technology in Agriculture
         </p>
         <Row style={{ marginTop: "80px" }}>
           <Col>
             <Row>
-              <p className={styles.bigText}>Last Update: 16 Dec 2023</p>
+              <p className={styles.bigText}>CitrusPark stands as a pioneering force in reshaping conventional fruit management practices through its trailblazing solutions. By harnessing the power of state-of-the-art technologies like Artificial Intelligence (AI) and the Internet of Things (IoT), we are spearheading a transformation in how farmers approach the cultivation of their fruit crops.</p>
             </Row>
-            <Row>
+            {/* <Row>
               <div className={`${styles.statusCard} ${styleBg}`}>
                 {aqi?.status}
               </div>
-            </Row>
+            </Row> */}
           </Col>
           <Col>
             <Row>
-              <Col>
+              {/* <Col>
                 <p className={`${styles.score} ${styleTxt}`}>{aqi?.avgAqi}</p>
                 <p className={styles.subtitle}>(AQI-NUST)</p>
-              </Col>
+              </Col> */}
               <Col>
                 <img className={styles.img} src={image} alt="graphic" />
               </Col>

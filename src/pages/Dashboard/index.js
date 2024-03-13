@@ -17,6 +17,7 @@ import {
   DropdownMenu,
   DropdownToggle,
   DropdownItem,
+
 } from "reactstrap"
 
 //import Charts
@@ -137,78 +138,78 @@ const Dashboard = props => {
 
   const reports = [
     {
-      title: "NO2",
+      value: "Strawberry",
       color: "warning",
-      value: `${selectedNode?.no2}  ppm`,
-      desc: "updated today",
+      title: `Estimated Yeild Over The Year`,
+      // : "updated today",
       series: series1,
       options: options1,
       arrowUpDown: "mdi mdi-arrow-up ms-1 text-success",
     },
     {
-      title: "CH4",
+      value: "Oranges",
       color: "primary",
-      value: `${selectedNode?.ch4}  ppm`,
-      desc: "updated today",
+      title: `Estimated Yeild Over The Year`,
+
       series: series2,
       options: options2,
       arrowUpDown: "mdi mdi-arrow-down ms-1 text-danger",
     },
     {
-      title: "NH3",
+      value: "Apple",
       color: "info",
-      value: `${selectedNode?.nh3}  ppm`,
-      desc: "updated today",
+      title: `Estimated Yeild Over The Year`,
+
       series: series3,
       options: options3,
       arrowUpDown: "mdi mdi-arrow-up ms-1 text-success",
     },
     {
-      title: "CO",
+      value: "Melon",
       icon: "mdi mdi-bitcoin",
       color: "warning",
-      value: `${selectedNode?.co}  ppm`,
-      desc: "updated today",
+      title: `${selectedNode?.co}  ppm`,
+
       series: series1,
       options: options1,
       arrowUpDown: "mdi mdi-arrow-up ms-1 text-success",
     },
     {
-      title: "CO2",
+      value: "Grapes",
       icon: "mdi mdi-ethereum",
       color: "primary",
-      value: `${selectedNode?.co2}  ppm`,
-      desc: "updated today",
+      title: `Estimated Yeild Over The Year`,
+
       series: series2,
       options: options2,
       arrowUpDown: "mdi mdi-arrow-down ms-1 text-danger",
     },
     {
-      title: "Dust",
+      value: "Avocado",
       icon: "mdi mdi-litecoin",
       color: "info",
-      value: `${selectedNode?.dust}  ug/m3`,
-      desc: "updated today",
+      title: `Estimated Yeild Over The Year`,
+
       series: series3,
       options: options3,
       arrowUpDown: "mdi mdi-arrow-up ms-1 text-success",
     },
     {
-      title: "PM10",
+      value: "Cheery",
       icon: "mdi mdi-ethereum",
       color: "primary",
-      value: `${selectedNode?.pm_ten} ug/m3`,
-      desc: "updated today",
+      title: `Estimated Yeild Over The Year`,
+
       series: series2,
       options: options2,
       arrowUpDown: "mdi mdi-arrow-down ms-1 text-danger",
     },
     {
-      title: "PM1.0",
+      value: "Lemon",
       icon: "mdi mdi-litecoin",
       color: "info",
-      value: `${selectedNode?.pm_one}  ug/m3`,
-      desc: "updated today",
+      title: `Estimated Yeild Over The Year`,
+
       series: series3,
       options: options3,
       arrowUpDown: "mdi mdi-arrow-up ms-1 text-success",
@@ -216,41 +217,24 @@ const Dashboard = props => {
   ]
 
   //meta title
-  document.title = "Dashboard | NAQM"
+  document.title = "Dashboard | Citrus Park"
 
   return (
     <React.Fragment>
-      <div className="page-content">
-        <Container fluid>
+      <div className="page-content " >
+        <Container fluid s>
           {/* Render Breadcrumb */}
           <Breadcrumbs
             title={props.t("Dashboards")}
             breadcrumbItem={props.t("Dashboard")}
           />
-          <Row className="mb-4">
-            <Col>
-              <h4 className="card-title">
-                Current Node : {selectedNode?.name}
-              </h4>
-            </Col>
-            <Col style={{ display: "flex", flexDirection: "row-reverse" }}>
-              <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
-                <DropdownToggle caret>Select Node</DropdownToggle>
-                <DropdownMenu>
-                  {nodes.map((node, index) => (
-                    <DropdownItem
-                      key={node?.node_id}
-                      onClick={() => {
-                        setSelectedNode(node)
-                      }}
-                    >
-                      Node {node?.node_id} : {node?.name}
-                    </DropdownItem>
-                  ))}
-                </DropdownMenu>
-              </Dropdown>
-            </Col>
-          </Row>
+          {/* <Row className="mb-4"> */}
+
+          {/* <Col style={{ display: "flex", flexDirection: "row-reverse" }}> */}
+          {/* input a video here i mean show a video here and a button below to upload a video  */}
+          {/* <Input type="" /> */}
+          {/* </Col> */}
+          {/* </Row> */}
 
           <Row>
             <Col xl="12">
@@ -260,15 +244,16 @@ const Dashboard = props => {
                   <CurrentAqi node={selectedNode} />
                 </Col>
                 <Col xl="8">
+
                   <StatisticsApplications />
                 </Col>
               </Row>
-              <Row>
+              <Row style={{ marginTop: '70px' }}>
                 <MiniWidget reports={reports} />
               </Row>
-              <Row>
+              {/* <Row>
                 <DataTable node={selectedNode?.node_id} />
-              </Row>
+              </Row> */}
             </Col>
           </Row>
         </Container>
