@@ -18,7 +18,7 @@ const CurrentAqi = props => {
           <Row>
             <Col sm="6">
               {/* <p className="text-muted">At Node</p> */}
-              <h3>128401</h3>
+              <h3>13944</h3>
             </Col>
             {/* <Col sm="6">
               <div className="mt-4 mt-sm-0">

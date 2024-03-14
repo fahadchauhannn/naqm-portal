@@ -44,7 +44,7 @@ const Crousal = () => {
         top: 0,
         left: 0,
         width: '100%',
-        height: '90%',
+        height: '80vh',
         backgroundColor: 'rgba(0, 0, 0, 0.5)', // You can adjust the background color and opacity
         display: 'flex',
         justifyContent: 'center',

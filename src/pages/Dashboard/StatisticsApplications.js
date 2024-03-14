@@ -16,10 +16,10 @@ const VideoUploader = () => {
 
   const uploadVideo = (video) => {
     // Simulating video upload delay (replace with actual upload logic)
-    setTimeout(() => {
-      setUploadedVideo(URL.createObjectURL(video));
-      setShowUpload(false); // Hide the upload section after successful upload
-    }, 2000);
+    // setTimeout(() => {
+    setUploadedVideo(URL.createObjectURL(video));
+    setShowUpload(false); // Hide the upload section after successful upload
+    // }, 9000);
   };
 
   return (
