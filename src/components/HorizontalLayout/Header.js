@@ -381,7 +381,7 @@ const Header = props => {
               </DropdownMenu>
             </Dropdown> */}
 
-            {!login && (
+            {/* {!login && (
               <div className="dropdown d-none d-lg-inline-block ms-1">
                 <button
                   type="button"
@@ -409,7 +409,7 @@ const Header = props => {
                   Logout
                 </button>
               </div>
-            )}
+            )} */}
 
             <div className="dropdown d-none d-lg-inline-block ms-1">
               <button

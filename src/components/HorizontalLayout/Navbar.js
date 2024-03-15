@@ -118,22 +118,22 @@ const Navbar = props => {
                     {props.t("Home")}
                   </Link>
                 </li>
-                {login && (
-                  <li className="nav-item dropdown">
-                    <Link
-                      className="nav-link dropdown-toggle arrow-none"
-                      // onClick={e => {
-                      //   e.preventDefault()
-                      //   // setdashboard(!dashboard)
-                      // }}
-                      to="/dashboard"
-                    >
-                      <i className="bx bx-customize me-2"></i>
-                      {props.t("Dashboard")}
-                      {/* {props.t("Dashboard")} {props.menuOpen} */}
-                      {/* <div className="arrow-down"></div> */}
-                    </Link>
-                    {/* <div
+                {/* {login && ( */}
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle arrow-none"
+                    // onClick={e => {
+                    //   e.preventDefault()
+                    //   // setdashboard(!dashboard)
+                    // }}
+                    to="/dashboard"
+                  >
+                    <i className="bx bx-customize me-2"></i>
+                    {props.t("Dashboard")}
+                    {/* {props.t("Dashboard")} {props.menuOpen} */}
+                    {/* <div className="arrow-down"></div> */}
+                  </Link>
+                  {/* <div
                     className={classname("dropdown-menu", { show: dashboard })}
                   >
                     <Link to="/dashboard" className="dropdown-item">
@@ -152,8 +152,8 @@ const Navbar = props => {
                       {props.t("Jobs")}
                     </Link>
                   </div> */}
-                  </li>
-                )}
+                </li>
+                {/* // )} */}
                 {/* {login && (
                   <li className="nav-item dropdown">
                     <Link
