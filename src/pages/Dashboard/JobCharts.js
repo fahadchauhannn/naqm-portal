@@ -136,6 +136,13 @@ const StatisticsApplicationsChart = ({ seriesData, dataColors }) => {
     xaxis: {
       type: "datetime",
     },
+    yaxis: {
+      labels: {
+        formatter: function (value) {
+          return Math.round(value); // Round values to remove decimal points
+        },
+      },
+    },
     tooltip: {
       shared: true,
       intersect: false,
@@ -152,6 +159,7 @@ const StatisticsApplicationsChart = ({ seriesData, dataColors }) => {
   return (
     <React.Fragment>
       <ReactApexChart
+
         options={options}
         series={series}
         type="line"

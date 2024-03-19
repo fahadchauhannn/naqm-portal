@@ -66,6 +66,13 @@ const AqiChart = ({ dataColors }) => {
       type: "datetime",
       categories: labels,
     },
+    yaxis: {
+      labels: {
+        formatter: function (value) {
+          return Math.round(value); // Round values to remove decimal points
+        },
+      },
+    },
     grid: {
       borderColor: "#f1f1f1",
     },

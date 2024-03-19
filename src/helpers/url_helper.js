@@ -1,5 +1,5 @@
-export const BASE_URL = "http://localhost:3032/api/"
-// export const BASE_URL = "http://68.183.83.33:3032/api/"
+// export const BASE_URL = "http://localhost:3032/api/"
+export const BASE_URL = "http://68.183.83.33:3032/api/"
 
 export const LOGIN_URL = "auth/login"
 
