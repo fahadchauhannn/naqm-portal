@@ -110,7 +110,7 @@ const DataTable = props => {
         accessor: "lat",
       },
       {
-        Header: "lng",
+        Header: "long",
         accessor: "lng",
       },
     ],

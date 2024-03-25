@@ -268,13 +268,13 @@ const HomePage = () => {
                           value={validation.values.number || ""}
                           invalid={
                             validation.touched.number &&
-                            validation.errors.number
+                              validation.errors.number
                               ? true
                               : false
                           }
                         />
                         {validation.touched.number &&
-                        validation.errors.number ? (
+                          validation.errors.number ? (
                           <FormFeedback type="invalid">
                             {validation.errors.number}
                           </FormFeedback>

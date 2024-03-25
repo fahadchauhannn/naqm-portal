@@ -5,6 +5,10 @@ import { get } from "helpers/api_helper"
 
 const AqiContainer = props => {
   let style = styles.success
+  if (props.children > 0 && props.children <= 50) {
+    style = styles.good
+
+  }
   if (props.children > 50 && props.children <= 100) {
     style = styles.moderate
   }
@@ -28,12 +32,14 @@ const PollutedListCard = () => {
 
   useEffect(() => {
     fetchWorstNodes()
+
   }, [])
 
   const fetchWorstNodes = async () => {
     try {
       const reponse = await get("data/readings-by-type/worst")
       setNodes(reponse.data)
+      console.log("worst", nodes);
     } catch (err) {
       console.log(err)
     }

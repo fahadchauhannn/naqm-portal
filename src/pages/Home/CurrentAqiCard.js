@@ -8,6 +8,7 @@ const CurrentAqiCard = () => {
   const [aqi, setAqi] = useState()
   const [styleBg, setStyleBg] = useState(styles.success)
   const [styleTxt, setStyleTxt] = useState(styles.successText)
+  const [date, setdate] = useState('')
 
   useEffect(() => {
     fetchAqi()
@@ -20,6 +21,10 @@ const CurrentAqiCard = () => {
       setAqi(reponse.data)
       console.log(reponse.data.avgAqi)
 
+      if (reponse.data?.avgAqi > 0 && reponse.data?.avgAqi <= 50) {
+        setStyleBg(styles.good)
+        setStyleTxt(styles.goodText)
+      }
       if (reponse.data?.avgAqi > 50 && reponse.data?.avgAqi <= 100) {
         setStyleBg(styles.moderate)
         setStyleTxt(styles.moderateText)
@@ -43,7 +48,17 @@ const CurrentAqiCard = () => {
     } catch (err) {
       console.log(err)
     }
+    try {
+      const response = await get("data/aqi-graph");
+      const dates = response.data.map(entry => new Date(entry.date.year, entry.date.month - 1, entry.date.day));
+      const latest = new Date(Math.max(...dates));
+      const formattedDate = latest.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      setdate(formattedDate);
+    } catch (err) {
+      console.log(err);
+    }
   }
+
 
   return (
     <Card>
@@ -58,7 +73,7 @@ const CurrentAqiCard = () => {
         <Row style={{ marginTop: "80px" }}>
           <Col>
             <Row>
-              <p className={styles.bigText}>Last Update: 16 Dec 2023</p>
+              <p className={styles.bigText}>Last Update: {date}</p>
             </Row>
             <Row>
               <div className={`${styles.statusCard} ${styleBg}`}>

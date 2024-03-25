@@ -92,6 +92,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Plot from "react-plotly.js";
 import { get } from "helpers/api_helper"
+import { node } from "prop-types";
 const MapComponent = (props) => {
 
 
@@ -200,14 +201,14 @@ const MapComponent = (props) => {
             {
               width: '100vw',
               type: "scattermapbox",
-              lat: sensor_data.map((data) => data[0]),
-              lon: sensor_data.map((data) => data[1]),
-              // lat: nodes.map((node) => node.lat),
-              // lon: nodes.map((node) => node.lng),
+              // lat: sensor_data.map((data) => data[0]),
+              // lon: sensor_data.map((data) => data[1]),
+              lat: nodes.map((node) => node.lat),
+              lon: nodes.map((node) => node.lng),
               mode: "markers",
               marker: {
                 size: 70,
-                color: sensor_data.map((data) => getRgbaColor(aqiColorRanges.find((range) => data[2] >= range.min && data[2] <= range.max)?.color, 0.5)),
+                color: nodes.map((data) => getRgbaColor(aqiColorRanges.find((range) => data.aqi >= range.min && data.aqi <= range.max)?.color, 0.5)),
                 colorscale: getColorScale(),
                 cmin: 0,
                 cmax: 301,
@@ -216,8 +217,8 @@ const MapComponent = (props) => {
                   ticksuffix: "",
                 },
               },
-              text: sensor_data.map((data) => `AQI: ${data[2]}`),
-              // text: nodes.map((node) => `AQI: ${node.aqi}`),
+              // text: sensor_data.map((data) => `AQI: ${data[2]}`),
+              text: nodes.map((node) => `AQI: ${node.aqi}`),
             },
           ]}
           layout={{

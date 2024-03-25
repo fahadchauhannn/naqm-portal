@@ -124,8 +124,8 @@ const Dashboard = props => {
   const fetchNodesData = async () => {
     try {
       const response = await get("data/latest-readings")
-      setNodes(response.data)
-      setSelectedNode(response.data[0])
+      setNodes(response.data.mapReadings)
+      setSelectedNode(response.data.mapReadings[0])
     } catch (err) {
       console.log(err)
     }

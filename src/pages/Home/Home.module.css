@@ -54,6 +54,10 @@
   background-color: yellow !important;
   color: black !important;
 }
+.good {
+  background-color: green !important;
+  color: white !important;
+}
 .unhealthy {
   background-color: orange !important;
   color: white !important;
@@ -77,6 +81,9 @@
 
 .moderateText {
   color: yellow;
+}
+.goodText {
+  color: green;
 }
 .unhealthyText {
   color: orange;
