@@ -137,7 +137,7 @@ const Dashboard = props => {
 
   const reports = [
     {
-      title: "NO2",
+      title: "NO₂",
       color: "warning",
       value: `${selectedNode?.no2}  ppm`,
       desc: "updated today",
@@ -146,7 +146,7 @@ const Dashboard = props => {
       arrowUpDown: "mdi mdi-arrow-up ms-1 text-success",
     },
     {
-      title: "CH4",
+      title: "CH₄",
       color: "primary",
       value: `${selectedNode?.ch4}  ppm`,
       desc: "updated today",
@@ -155,7 +155,7 @@ const Dashboard = props => {
       arrowUpDown: "mdi mdi-arrow-down ms-1 text-danger",
     },
     {
-      title: "NH3",
+      title: "NH₃",
       color: "info",
       value: `${selectedNode?.nh3}  ppm`,
       desc: "updated today",
@@ -174,7 +174,7 @@ const Dashboard = props => {
       arrowUpDown: "mdi mdi-arrow-up ms-1 text-success",
     },
     {
-      title: "CO2",
+      title: "CO₂",
       icon: "mdi mdi-ethereum",
       color: "primary",
       value: `${selectedNode?.co2}  ppm`,
@@ -194,7 +194,7 @@ const Dashboard = props => {
       arrowUpDown: "mdi mdi-arrow-up ms-1 text-success",
     },
     {
-      title: "PM10",
+      title: "PM₁₀",
       icon: "mdi mdi-ethereum",
       color: "primary",
       value: `${selectedNode?.pm_ten} ug/m3`,
@@ -204,7 +204,7 @@ const Dashboard = props => {
       arrowUpDown: "mdi mdi-arrow-down ms-1 text-danger",
     },
     {
-      title: "PM1.0",
+      title: "PM₁.₀",
       icon: "mdi mdi-litecoin",
       color: "info",
       value: `${selectedNode?.pm_one}  ug/m3`,

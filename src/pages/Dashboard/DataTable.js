@@ -32,7 +32,7 @@ const DataTable = props => {
   const fetchNodesData = async () => {
     try {
       const response = await get(`data/latest-readings/node/${node}`);
-
+      console.log('res form node ', response);
       // Assuming the response data has a "created_at" field
       const sortedData = response.data.sort((a, b) => {
         return new Date(b.created_at) - new Date(a.created_at);
@@ -47,14 +47,12 @@ const DataTable = props => {
     }
   };
 
-  const columns = useMemo(
-    () => [
+  const columns = useMemo(() => {
+    let cols = [
       {
         Header: "Created At",
         accessor: "created_at",
-        Cell: (cellProps) => {
-          return <DateCell {...cellProps} />;
-        },
+        Cell: (cellProps) => <DateCell {...cellProps} />,
       },
       {
         Header: "Node Id",
@@ -64,7 +62,6 @@ const DataTable = props => {
         Header: "Name",
         accessor: "name",
       },
-
       {
         Header: "Dust",
         accessor: "dust",
@@ -74,27 +71,27 @@ const DataTable = props => {
         accessor: "co",
       },
       {
-        Header: "CO2",
+        Header: "CO₂",
         accessor: "co2",
       },
       {
-        Header: "NO2",
+        Header: "NO₂",
         accessor: "no2",
       },
+      // {
+      //   Header: "CH4",
+      //   accessor: "ch4",
+      // },
+      // {
+      //   Header: "NH3",
+      //   accessor: "nh3",
+      // },
       {
-        Header: "CH4",
-        accessor: "ch4",
-      },
-      {
-        Header: "NH3",
-        accessor: "nh3",
-      },
-      {
-        Header: "PM1.0",
+        Header: "PM₁.₀",
         accessor: "pm_one",
       },
       {
-        Header: "PM10",
+        Header: "PM₁₀",
         accessor: "pm_ten",
       },
       {
@@ -113,9 +110,19 @@ const DataTable = props => {
         Header: "long",
         accessor: "lng",
       },
-    ],
-    []
-  )
+    ];
+
+    const indexOfNO2 = cols.findIndex((col) => col.accessor === "no2");
+
+    if (indexOfNO2 !== -1 && tableData.length > 0 && tableData[tableData.length - 1].SO2 !== -4000) {
+      cols.splice(indexOfNO2 + 1, 0, {
+        Header: "SO₂",
+        accessor: "SO2",
+      });
+    }
+
+    return cols;
+  }, [tableData]);
 
   return (
     <div>

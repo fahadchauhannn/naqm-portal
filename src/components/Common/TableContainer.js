@@ -205,10 +205,11 @@ const TableContainer = ({
                       <p>{column.render("Header")}</p>
                       {generateSortingIndicator(column)}
                       <p style={{ fontWeight: 300 }}>
-                        {column.render("Header") === 'Dust' || column.render("Header") === 'PM1.0' || column.render("Header") === 'PM10' ? <> µg/m³ </> :
-                          column.render("Header") === 'CO' || column.render("Header") === 'CO2' || column.render("Header") === 'NO2' || column.render("Header") === 'CH4' || column.render("Header") === 'NH3' ? <> PPM </> :
-                            column.render("Header") === 'Temp' ? <> °C </> :
-                              column.render("Header") === 'Humid' ? <> % </> : <p style={{ color: 'transparent' }}>.</p>}
+                        {column.render("Header") === 'Dust' || column.render("Header") === 'PM₁.₀' || column.render("Header") === 'PM₁₀' ? <> µg/m³ </> :
+                          column.render("Header") === 'lat' || column.render("Header") === 'long' ? <> Degree </> :
+                            column.render("Header") === 'CO' || column.render("Header") === 'CO₂' || column.render("Header") === 'NO₂' || column.render("Header") === 'CH4' || column.render("Header") === 'NH3' || column.render("Header") === 'SO₂' ? <> PPM </> :
+                              column.render("Header") === 'Temp' ? <> °C </> :
+                                column.render("Header") === 'Humid' ? <> % </> : <p style={{ color: 'transparent' }}>.</p>}
                       </p>
                     </div>
 

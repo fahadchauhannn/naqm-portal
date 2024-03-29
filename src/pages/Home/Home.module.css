@@ -53,6 +53,7 @@
 .moderate {
   background-color: yellow !important;
   color: black !important;
+  
 }
 .good {
   background-color: green !important;
@@ -61,16 +62,43 @@
 .unhealthy {
   background-color: orange !important;
   color: white !important;
+  
 }
 .veryUnhealthy {
   background-color: purple !important;
   color: white !important;
+  
 }
 .hazardous {
   background-color: maroon !important;
   color: white !important;
+  
 }
 
+.moderateline {
+  border-bottom: 4px solid yellow !important;
+  
+}
+.goodline {
+  border-bottom: 4px solid green !important;
+  
+}
+.unhealthyline {
+  border-bottom: 4px solid orange !important;
+  
+}
+.veryUnhealthyline {
+  border-bottom: 4px solid purple !important;
+  
+}
+.hazardousline {
+  border-bottom: 4px solid maroon !important;
+  
+}
+
+.dangerline {
+  border-bottom: 4px solid red !important;
+}
 .dangerText {
   color: red;
 }
@@ -211,4 +239,29 @@
   font-size: 15px;
   font-weight: 600;
   padding-bottom: 5px;
+}
+
+
+.green {
+  background-color: green !important;
+}
+
+.yellow {
+  background-color: yellow !important;
+}
+
+.orange {
+  background-color: orange !important;
+}
+
+.red {
+  background-color: red !important;
+}
+
+.purple {
+  background-color: purple !important;
+}
+
+.maroon {
+  background-color: maroon !important;
 }

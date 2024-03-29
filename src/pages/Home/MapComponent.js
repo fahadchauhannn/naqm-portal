@@ -1,98 +1,10 @@
 
 
-
-// import React, { useEffect, useRef, useState, Fragment } from "react"
-
-
-// import "../../../node_modules/leaflet/dist/leaflet.css";
-// import HeatmapLayer from "react-leaflet-heatmap-layer";
-
-// import Plot from "react-plotlyjs";
-
-
-// const MapComponent = props => {
-
-
-//   const state = {
-//     lat: 48.137154,
-//     lng: 11.576124,
-//     zoom: 12,
-//     position: [48.137154, 11.576124],
-//   };
-
-//   const addressPoints = [
-//     [48.2, 11.62, 20],
-//     [48.0, 11.51, 10],
-//     [48.08, 11.7, 30],
-//     [48.11, 11.5, 40],
-//     [48.11, 11.6, 60],
-//     [48.137154, 11.576124, 100],
-//   ];
-
-
-
-
-//   function MapPlaceholder() {
-//     return (
-//       <p>
-//         Map of London.{' '}
-//         <noscript>You need to enable JavaScript to see this map.</noscript>
-//       </p>
-//     )
-//   }
-//   return (
-//     <Fragment>
-//       <div style={{ minHeight: "70vh", minWidth: "100vw", height: "100%", width: "100%" }}>
-//         <Plot
-//           data={[
-//             {
-//               type: "scattermapbox",
-//               lat: addressPoints.map((point) => point[0]),
-//               lon: addressPoints.map((point) => point[1]),
-//               mode: "markers",
-//               marker: {
-//                 size: 14,
-//                 // color: addressPoints.map((point) => point[2]),
-//                 color: 'red',
-//                 colorscale: "Viridis",
-//                 cmin: 0,
-//                 cmax: 100,
-//                 colorbar: {
-//                   title: "AQI",
-//                   ticksuffix: "",
-//                 },
-//               },
-//               text: addressPoints.map((point) => `AQI: ${point[2]}`),
-//             },
-//           ]}
-//           layout={{
-//             autosize: true,
-//             hovermode: "closest",
-//             mapbox: {
-//               style: "open-street-map",
-//               center: { lat: addressPoints[0][0], lon: addressPoints[0][1] },
-//               zoom: 12,
-//             },
-//           }}
-//           config={{ scrollZoom: false }}
-//         />
-//       </div>
-//     </Fragment>
-
-
-
-//   )
-// }
-
-// export default MapComponent
-
-
-
-
 import React, { Fragment, useEffect, useState } from "react";
 import Plot from "react-plotly.js";
 import { get } from "helpers/api_helper"
 import { node } from "prop-types";
+import pinIcon from "./mapImages/pin.png";
 const MapComponent = (props) => {
 
 
@@ -157,13 +69,8 @@ const MapComponent = (props) => {
 
   ]
 
-  const sensor_data = [
-    [33.646702, 72.994733, 200],
-    [33.643094, 72.989833, 290],
-    [33.642983, 72.988272, 100],
-  ];
 
-  const getRgbaColor = (color, transparency = 1) => {
+  const getRgbaColor = (color, transparency = 0.8) => {
     switch (color) {
       case "green":
         return `rgba(0, 128, 0, ${transparency})`;
@@ -201,14 +108,18 @@ const MapComponent = (props) => {
             {
               width: '100vw',
               type: "scattermapbox",
-              // lat: sensor_data.map((data) => data[0]),
-              // lon: sensor_data.map((data) => data[1]),
+
               lat: nodes.map((node) => node.lat),
               lon: nodes.map((node) => node.lng),
-              mode: "markers",
+              mode: "markers+text",
+
+
               marker: {
-                size: 70,
-                color: nodes.map((data) => getRgbaColor(aqiColorRanges.find((range) => data.aqi >= range.min && data.aqi <= range.max)?.color, 0.5)),
+
+                size: 75,
+
+
+                color: nodes.map((data) => getRgbaColor(aqiColorRanges.find((range) => data.aqi >= range.min && data.aqi <= range.max)?.color, 0.65)),
                 colorscale: getColorScale(),
                 cmin: 0,
                 cmax: 301,
@@ -217,7 +128,7 @@ const MapComponent = (props) => {
                   ticksuffix: "",
                 },
               },
-              // text: sensor_data.map((data) => `AQI: ${data[2]}`),
+
               text: nodes.map((node) => `AQI: ${node.aqi}`),
             },
           ]}
@@ -229,7 +140,7 @@ const MapComponent = (props) => {
             mapbox: {
               style: "open-street-map",
               center: { lat: 33.643034447738955, lon: 72.98970798650696 },
-              zoom: 15,
+              zoom: 14.8,
             },
           }}
           config={{ scrollZoom: false }}

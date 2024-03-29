@@ -12,6 +12,31 @@ import styles from "./Home.module.css"
 import { get } from "helpers/api_helper"
 
 const AirPollutantCard = () => {
+  const pollutantNames = {
+    no2: 'NO₂',
+    co2: 'CO₂',
+    pm10: 'PM₁₀',
+    pm1: 'PM₁.₀',
+    Dust: 'DUST',
+    temp: 'TEMP',
+    Temp: 'TEMP',
+    ch4: 'CH₄',
+    co: 'CO',
+    Co: 'CO',
+    nh3: 'NH₃',
+    Nh3: 'NH3'
+
+
+  };
+
+  const formatPollutantName = (name) => {
+    const formattedName = pollutantNames[name.toLowerCase()];
+    if (formattedName) {
+      return formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
+    } else {
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    }
+  };
   const [pollutants, setPollutants] = useState([])
 
   useEffect(() => {
@@ -31,13 +56,14 @@ const AirPollutantCard = () => {
     <Card>
       <CardBody>
         <CardTitle className={styles.PollutantTitle}>
-          Major Air Pollutants in NUST
+          AQI of Major Air Pollutants in NUST
         </CardTitle>
         <Row style={{ marginTop: "20px" }}>
           {pollutants.map(pollutant => (
             <Col className={styles.pollutantColumn} key={pollutant.name}>
               <span className={styles.pollutantScore}>{pollutant.aqi}</span>
-              <span>({pollutant.name})</span>
+
+              <span>({formatPollutantName(pollutant.name)})</span>
             </Col>
           ))}
         </Row>

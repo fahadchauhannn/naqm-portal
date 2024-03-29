@@ -90,10 +90,26 @@ const StatisticsApplicationsChart = ({ seriesData, dataColors }) => {
       data: seriesData.aqi || [],
     },
     {
-      name: "CO2",
-      type: "line",
+      name: "CO₂",
+      type: "column",
       data: seriesData.co2 || [],
     },
+    {
+      name: "NO₂",
+      type: "column",
+      data: seriesData.no2 || [],
+    },
+    {
+      name: "PM₁₀",
+      type: "column",
+      data: seriesData.pm_ten || [],
+    },
+    {
+      name: "PM₁.₀",
+      type: "column",
+      data: seriesData.pm_one || [],
+    },
+
   ]
   var options = {
     chart: {

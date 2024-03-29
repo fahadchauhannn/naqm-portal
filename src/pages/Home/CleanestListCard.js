@@ -46,9 +46,9 @@ const CleanestListCard = () => {
     <Card>
       <CardBody>
         <CardTitle className={styles.title}>
-          Least Polluted Nodes in NUST
+          Realtime Node Ranking
         </CardTitle>
-        <p className="text-muted">Realtime best node Ranking</p>
+
         <div className="table-responsive">
           <Table className="table mb-0">
             <thead>

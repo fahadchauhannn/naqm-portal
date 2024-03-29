@@ -39,6 +39,14 @@ import * as Yup from "yup"
 import styles from "./Home.module.css"
 import { post } from "helpers/api_helper"
 import AqiCategory from "./AqiCategory"
+import Apexchart from "pages/Charts/Apexcharts"
+import ChartistChart from "pages/Charts/ChartistChart"
+import ChartjsChart from "pages/Charts/ChartjsChart"
+import ChartsKnob from "pages/Charts/charts-knob"
+import EChart from "pages/Charts/EChart"
+import ReCharts from "pages/Charts/ReCharts"
+import SparklineChart from "pages/Charts/SparklineChart"
+import MainReadings from "./MainReadings"
 
 const HomePage = () => {
   //meta title
@@ -134,10 +142,11 @@ const HomePage = () => {
       <div className="page-content">
         <Headline />
         <MapComponent />
-        <Container fluid>
+        <Container fluid style={{ marginTop: '40px' }}>
           <Row>
             <Col md={4}>
-              <PollutedListCard />
+              {/* <PollutedListCard /> */}
+              <MainReadings />
               <CleanestListCard />
               <AqiCalendar />
               <AqiCategory />
@@ -300,6 +309,7 @@ const HomePage = () => {
           )}
         </Modal>
       </div>
+
     </HorizontalLayout>
   )
 }

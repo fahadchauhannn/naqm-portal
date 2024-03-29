@@ -34,6 +34,9 @@ const AqiCalendar = () => {
 
   const getStyle = aqi => {
     let style = styles.success
+    if (aqi > 0 && aqi <= 50) {
+      style = styles.good
+    }
     if (aqi > 50 && aqi <= 100) {
       style = styles.moderate
     }

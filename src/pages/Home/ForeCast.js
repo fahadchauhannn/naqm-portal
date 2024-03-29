@@ -3,6 +3,29 @@ import { Card, CardBody, CardHeader, Table } from "reactstrap"
 import styles from "./Home.module.css"
 import { get } from "helpers/api_helper"
 const ForeCast = () => {
+  const getStyle = aqi => {
+    let style = styles.success
+    if (aqi > 0 && aqi <= 50) {
+      style = styles.goodline
+    }
+    if (aqi > 50 && aqi <= 100) {
+      style = styles.moderateline
+    }
+    if (aqi > 100 && aqi <= 150) {
+      style = styles.unhealthyline
+    }
+    if (aqi > 150 && aqi <= 200) {
+      style = styles.dangerline
+    }
+    if (aqi > 200 && aqi <= 300) {
+      style = styles.veryUnhealthyline
+    }
+    if (aqi > 300) {
+      style = styles.hazardousline
+    }
+
+    return style
+  }
   const [data, setData] = useState([])
   const [days, setDays] = useState([]);
   useEffect(() => {
@@ -11,6 +34,7 @@ const ForeCast = () => {
   }, [])
 
   const fetchTableData = async () => {
+
     try {
       const response = await get("data/latest-readings")
       setData(response.data?.prediction?.prediction[0]);
@@ -44,7 +68,7 @@ const ForeCast = () => {
         className={styles.headerTable}
         style={{ textAlign: "center" }}
       >
-        NUST Air Quality Forecast
+        AI Based NUST Air Quality Forecast
       </CardHeader>
       <CardBody>
         <div className="table-responsive">
@@ -64,11 +88,10 @@ const ForeCast = () => {
                   AQI
                 </th>
                 {data && data.map((value, index) => (
-                  <td key={index} className={styles.warningText}>
+                  <td key={index} className={`${styles.warningText} ${getStyle(Math.floor(value))}`}>
                     {Math.floor(value)}
                   </td>
                 ))}
-
               </tr>
             </tbody>
           </Table>

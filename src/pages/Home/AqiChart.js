@@ -3,12 +3,13 @@ import { get } from "helpers/api_helper"
 import React, { useEffect, useState } from "react"
 import ReactApexChart from "react-apexcharts"
 import { Card, CardBody } from "reactstrap"
+import styles from "./Home.module.css"; // Import styles from Home.module.css
 
 const AqiChart = ({ dataColors }) => {
   const spineareaChartColors = getChartColorsArray(dataColors)
   const [series, setSeries] = useState([])
   const [labels, setLabels] = useState([])
-  // const [data, setData] = useState([])
+
 
   useEffect(() => {
     fetchGraphData()
@@ -27,11 +28,10 @@ const AqiChart = ({ dataColors }) => {
         )}-${String(item.date.day).padStart(2, "0")}`
       })
 
-      console.log(label, "label")
       setLabels(label)
       setSeries([
         {
-          name: "AQI-MUST",
+          name: "AQI-NUST",
           data: data,
         },
       ])
@@ -39,13 +39,21 @@ const AqiChart = ({ dataColors }) => {
       console.log(err)
     }
   }
-
-  // const series = [
-  //   {
-  //     name: "AQI-NUST",
-  //     data: [34, 40, 28, 52, 42, 109, 100],
-  //   },
-  // ]
+  const getBarStyle = aqi => {
+    if (aqi > 0 && aqi <= 50) {
+      return '#008a00';
+    } else if (aqi > 50 && aqi <= 100) {
+      return '#E91E63';
+    } else if (aqi > 100 && aqi <= 150) {
+      return '#9C27B0';
+    } else if (aqi > 150 && aqi <= 200) {
+      return '#673AB7';
+    } else if (aqi > 200 && aqi <= 300) {
+      return '#3F51B5';
+    } else {
+      return '#2196F3';
+    }
+  };
 
   const options = {
     dataLabels: {
@@ -56,22 +64,39 @@ const AqiChart = ({ dataColors }) => {
       width: 3,
     },
 
-    colors: spineareaChartColors,
-    yaxis: {
-      title: {
-        text: "AQI-Nust",
-      },
-    },
+    colors: [
+      function ({ value }) {
+        if (value > 0 && value <= 50) {
+          return '#008a00';
+        } else if (value > 50 && value <= 100) {
+          return '#ffff00';
+        } else if (value > 100 && value <= 150) {
+          return '#ffa500';
+        } else if (value > 150 && value <= 200) {
+          return '#ff0000';
+        } else if (value > 200 && value <= 300) {
+          return '#800080';
+        } else {
+          return '#800000';
+        }
+      }
+    ],
+
     xaxis: {
       type: "datetime",
       categories: labels,
     },
     yaxis: {
+      title: {
+        text: "AQI",
+        offsetX: 2,
+      },
       labels: {
         formatter: function (value) {
           return Math.round(value); // Round values to remove decimal points
         },
       },
+
     },
     grid: {
       borderColor: "#f1f1f1",
@@ -89,8 +114,9 @@ const AqiChart = ({ dataColors }) => {
         <ReactApexChart
           options={options}
           series={series}
-          type="area"
+          type="bar"
           height="350"
+
         />
       </CardBody>
     </Card>

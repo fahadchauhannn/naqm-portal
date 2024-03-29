@@ -37,6 +37,8 @@ const StatisticsApplications = () => {
         })
       }
 
+
+
       console.log("Label", labels)
       setData({ ...response.data, labels })
     } catch (err) {
@@ -85,7 +87,7 @@ const StatisticsApplications = () => {
             </div>
             <StatisticsApplicationsChart
               seriesData={data}
-              dataColors='["--bs-primary", "--bs-success", "--bs-warning", "--bs-info"]'
+              dataColors='["--bs-primary", "--bs-success", "--bs-warning", "--bs-info", "#967969","#FFB6C1","#ADD8E6"]'
               dir="ltr"
             />
           </CardBody>
